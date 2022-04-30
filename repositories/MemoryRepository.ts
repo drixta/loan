@@ -1,4 +1,4 @@
-import {ID} from "../types.ts";
+import { ID } from "../types.ts";
 
 export abstract class MemoryRepository<T> {
   protected memoryStore: Map<ID, T> = new Map();

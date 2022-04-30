@@ -1,14 +1,14 @@
-import {ID} from "../types.ts";
-import {ILoansRepository} from "../repositories/ILoansRepository.ts";
-import {MemoryLoansRepository} from "../repositories/MemoryLoansRepository.ts";
-import {Loan} from "../entities/Loan.ts";
+import { ID } from "../types.ts";
+import { ILoansRepository } from "../repositories/ILoansRepository.ts";
+import { MemoryLoansRepository } from "../repositories/MemoryLoansRepository.ts";
+import { Loan } from "../entities/Loan.ts";
 
 interface CreateUserRequestParams {
   id: ID;
 }
 
 export class CreateLoanService {
-  private loansRepository:ILoansRepository = new MemoryLoansRepository();
+  private loansRepository: ILoansRepository = new MemoryLoansRepository();
 
   execute(data: CreateUserRequestParams) {
     const loanAlreadyExists = this.loansRepository.findByID(data.id);
