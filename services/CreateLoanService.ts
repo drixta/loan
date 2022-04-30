@@ -10,12 +10,14 @@ interface CreateUserRequestParams {
 export class CreateLoanService {
   private loansRepository:ILoansRepository = new MemoryLoansRepository();
 
-  async execute(data: CreateUserRequestParams) {
-    const loanAlreadyExists = await this.loansRepository.findByID(data.id);
+  execute(data: CreateUserRequestParams) {
+    const loanAlreadyExists = this.loansRepository.findByID(data.id);
     if (loanAlreadyExists) {
       throw new Error("Loan already exists.");
     }
     const loan = new Loan(data);
-    await this.loansRepository.save(data.id, loan);
+    this.loansRepository.save(data.id, loan);
   }
 }
+
+export const createLoanService = new CreateLoanService();

@@ -9,17 +9,17 @@ if (!Deno.args?.length && Deno.args.length !== 2) {
 const actionsJSON = await Deno.readTextFile(Deno.args[0]);
 const tasksJSON = await Deno.readTextFile(Deno.args[1]);
 
-const actionsRoute = {
-  createLoan: (action) => {
-    createLoanService(action.loanIdentifier);
+export const actionsRoute = {
+  createLoan: (action: any) => {
+    createLoanService.execute(action.loanIdentifier);
   },
-  createBorrower: (action) => {
-    createLoanService({borrowerId: action.borrowerId, loanId: action.loanIdentifier});
-  },
-  setLoanField: (action) => {
-    createLoanService(action.loanIdentifier);
-  },
-  setBorrowerField: (action) => {
-
-  },
+  // createBorrower: (action) => {
+  //   createLoanService({borrowerId: action.borrowerId, loanId: action.loanIdentifier});
+  // },
+  // setLoanField: (action) => {
+  //   createLoanService(action.loanIdentifier);
+  // },
+  // setBorrowerField: (action) => {
+  //
+  // },
 };
