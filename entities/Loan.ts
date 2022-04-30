@@ -2,11 +2,11 @@ import {ID} from "../types.ts";
 
 export class Loan {
   public readonly id: ID;
-  public loanAmount: number;
-  public loanType: string;
-  public purchasePrice: number;
-  public propertyAddress: string;
-  public borrowerId: string[];
+  public loanAmount?: number;
+  public loanType?: string;
+  public purchasePrice?: number;
+  public propertyAddress?: string;
+  public borrowerId?: string[];
 
   constructor(props: Loan) {
     this.id = props.id;

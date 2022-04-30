@@ -16,6 +16,6 @@ export class CreateLoanService {
       throw new Error("Loan already exists.");
     }
     const loan = new Loan(data);
-    await this.loansRepository.save(loan);
-  };
+    await this.loansRepository.save(data.id, loan);
+  }
 }
