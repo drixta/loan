@@ -26,7 +26,7 @@ abstract class TaskState {
 
 export type TaskStatus = "Open" | "Cancelled" | "Completed";
 
-const resolveCondition = (conditions: Condition[], pentity: Entity) => {
+export const resolveCondition = (conditions: Condition[], pentity: Entity) => {
   return conditions.every((condition) => {
     const field = condition.field;
     const entity = JSON.parse(JSON.stringify(pentity));
@@ -82,11 +82,11 @@ export class CompletedTaskState extends TaskState implements TaskState {
 
 export class Task {
   public readonly id: ID;
-  public taskDef: TaskDefinition;
-  public entity: Entity;
+  public readonly taskDef: TaskDefinition;
+  public readonly entity: Entity;
   public currentState: TaskState = new OpenTaskState(this);
 
-  constructor(props: Task) {
+  constructor(props: Pick<Task, "id" | "taskDef" | "entity">) {
     this.id = props.id;
     this.taskDef = props.taskDef;
     this.entity = props.entity;
@@ -101,6 +101,10 @@ export class Task {
   }
 
   print() {
-    printf(green(`${this.entity.id}:${this.taskDef.name}:${this.currentState.displayName}`))
+    printf(
+      green(
+        `${this.entity.id}:${this.taskDef.name}:${this.currentState.displayName}`,
+      ),
+    );
   }
 }

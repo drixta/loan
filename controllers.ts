@@ -12,6 +12,7 @@ import { TaskDefinition } from "./repositories/ITaskDefsRepository.ts";
 import { fifoEventBus } from "./providers/fifoEventBus.ts";
 import { taskInitializationService } from "./services/TaskInitializationService.ts";
 import { taskDefInitializationService } from "./services/TaskDefInitializationService.ts";
+import { taskResolverService } from "./services/TaskResolverService.ts";
 
 // if (!Deno.args?.length && Deno.args.length !== 2) {
 //   printf(
@@ -107,4 +108,20 @@ fifoEventBus.subscribe("loan.create.completed", (params: any) => {
 
 fifoEventBus.subscribe("borrower.create.completed", (params: any) => {
   taskInitializationService.execute({ entityID: params.id, type: "borrower" });
+});
+
+fifoEventBus.subscribe("loan.update.completed", (params: any) => {
+  taskResolverService.execute({
+    type: "loan",
+    field: params.field,
+    entity: params.entity,
+  });
+});
+
+fifoEventBus.subscribe("borrower.update.completed", (params: any) => {
+  taskResolverService.execute({
+    type: "borrower",
+    field: params.field,
+    entity: params.entity,
+  });
 });

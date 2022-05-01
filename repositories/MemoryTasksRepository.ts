@@ -2,8 +2,8 @@ import {
   GetTaskParams,
   ITasksRepository,
   SaveParams,
-  Task,
 } from "./ITasksRepository.ts";
+import { Task } from "../entities/Task.ts";
 
 export const taskStore: {
   [entityID: string]: {

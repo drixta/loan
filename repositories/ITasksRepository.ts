@@ -1,5 +1,5 @@
 import { ID } from "../types.ts";
-import { Task, TaskStatus } from "../entities/Task.ts";
+import { Task } from "../entities/Task.ts";
 
 export interface GetTaskParams {
   entityID: ID;
