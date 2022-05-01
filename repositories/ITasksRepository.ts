@@ -8,20 +8,18 @@ export interface Task {
   status: TaskStatus;
 }
 
-interface ListByEntityIDAndFieldParams {
+export interface GetTaskParams {
   entityID: ID;
-  field: string;
+  taskDefID: ID;
 }
 
-interface SaveParams {
+export interface SaveParams {
   entityID: ID;
-  field: string;
+  taskDefID: ID;
   task: Task;
 }
 
 export interface ITasksRepository {
-  listByEntityIDAndField(
-    { entityID, field }: ListByEntityIDAndFieldParams,
-  ): Task[] | undefined;
-  save({ entityID, field, task }: SaveParams): void;
+  getTask(params: GetTaskParams): Task | undefined;
+  save(params: SaveParams): void;
 }
