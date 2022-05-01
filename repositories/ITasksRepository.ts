@@ -1,12 +1,5 @@
 import { ID } from "../types.ts";
-
-export type TaskStatus = "Open" | "Cancelled" | "Completed";
-
-export interface Task {
-  id: string;
-  taskDefID: ID;
-  status: TaskStatus;
-}
+import {Task, TaskStatus} from "../entities/Task.ts";
 
 export interface GetTaskParams {
   entityID: ID;

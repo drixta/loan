@@ -7,7 +7,6 @@ import {
   updateLoanService,
 } from "./services/UpdateFieldService.ts";
 import { Borrower } from "./entities/Borrower.ts";
-import { initializeTaskDefinition } from "./controllers.ts";
 import { taskDefinitionStore } from "./repositories/MemoryTaskDefsRepository.ts";
 import { taskInitializationService } from "./services/TaskInitializationService.ts";
 import {taskStore} from "./repositories/MemoryTasksRepository.ts";
