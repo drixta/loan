@@ -16,11 +16,11 @@ export interface GetTaskParams {
 export interface SaveParams {
   entityID: ID;
   taskDefID: ID;
-  task: Task;
+  task: Task | null;
 }
 
 export interface ITasksRepository {
-  getTask(params: GetTaskParams): Task | undefined;
+  getTask(params: GetTaskParams): Task | null;
   save(params: SaveParams): void;
   listAllTasks(): Task[];
 }

@@ -7,6 +7,8 @@ import {
   updateLoanService,
 } from "./services/UpdateFieldService.ts";
 import { Borrower } from "./entities/Borrower.ts";
+import { initializeTaskDefinition } from "./controllers.ts";
+import { fieldToTaskDefStore } from "./repositories/MemoryTasksDefRepository.ts";
 
 Deno.test("Loan Service", async (t) => {
   const loanID = "loan123";

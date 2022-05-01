@@ -33,6 +33,7 @@ export interface GetTaskDefIDByEntityFieldParams {
 
 export interface ITasksDefRepository {
   getTaskDef(id: ID): TasksDefinition | undefined;
+  getTaskDefsIDOfType(type: EntityType): ID[];
   getTaskDefIDByEntityField(params: GetTaskDefIDByEntityFieldParams): void;
   save(params: SaveParams): void;
 }

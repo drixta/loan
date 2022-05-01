@@ -7,7 +7,7 @@ import {
 
 const taskStore: {
   [entityID: string]: {
-    [taskDefID: string]: Task;
+    [taskDefID: string]: Task | null;
   };
 } = {};
 
@@ -15,7 +15,7 @@ export class MemoryTasksRepository implements ITasksRepository {
   getTask({
     entityID,
     taskDefID,
-  }: GetTaskParams): Task | undefined {
+  }: GetTaskParams): Task | null {
     return taskStore[entityID][taskDefID];
   }
 
@@ -30,7 +30,7 @@ export class MemoryTasksRepository implements ITasksRepository {
       for (const taskDefID in taskStore[entityID]) {
         const task = taskStore[entityID][taskDefID];
         if (task) {
-          taskList.push(taskStore[entityID][taskDefID]);
+          taskList.push(task);
         }
       }
     }

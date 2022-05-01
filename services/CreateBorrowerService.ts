@@ -4,6 +4,7 @@ import { Loan } from "../entities/Loan.ts";
 import { Borrower } from "../entities/Borrower.ts";
 import { MemoryBorrowersRepository } from "../repositories/MemoryBorrowersRepository.ts";
 import { MemoryLoansRepository } from "../repositories/MemoryLoansRepository.ts";
+import { fifoEventBus } from "../providers/fifoEventBus.ts";
 
 interface CreateBorrowerRequestParams {
   borrowerID: ID;
@@ -29,6 +30,10 @@ export class CreateBorrowerService {
     if (loan?.borrowerID) {
       loan.borrowerID.push(borrowerID);
     }
+    fifoEventBus.publishSync("borrower.create.completed", {
+      borrowerID,
+      loanID,
+    });
   }
 }
 
