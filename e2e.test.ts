@@ -1,7 +1,9 @@
 import { assertEquals } from "https://deno.land/std@0.137.0/testing/asserts.ts";
 import { createLoanService } from "./services/CreateLoanService.ts";
 import { Loan } from "./entities/Loan.ts";
-import {createBorrowerService} from "./services/CreateBorrowerService.ts";
+import { createBorrowerService } from "./services/CreateBorrowerService.ts";
+import {updateBorrowerService, updateLoanService} from "./services/UpdateFieldService.ts";
+import {Borrower} from "./entities/Borrower.ts";
 
 Deno.test("Loan Service", async (t) => {
   const loanID = "loan123";
@@ -26,11 +28,37 @@ Deno.test("Loan Service", async (t) => {
       createBorrowerService["loansRepository"].findByID(loanID),
       new Loan({
         borrowerID: [borrowerID],
-        id: "loan123",
+        id: loanID,
+      }),
+    );
+    assertEquals(
+      createBorrowerService["borrowersRepository"].findByID(borrowerID),
+      new Borrower({
+        id: borrowerID,
+      }),
+    );
+  });
+  await t.step("update a loan", () => {
+    updateLoanService.execute({ id: loanID, field: 'loanType', value: 'Purchase'});
+    assertEquals(
+      updateLoanService["repository"].findByID(loanID),
+      new Loan({
+        borrowerID: [borrowerID],
+        id: loanID,
         loanAmount: undefined,
-        loanType: undefined,
+        loanType: 'Purchase',
         propertyAddress: undefined,
         purchasePrice: undefined,
+      }),
+    );
+  });
+  await t.step("update a borrower", () => {
+    updateBorrowerService.execute({ id: borrowerID, field: 'firstName', value: 'Jane'});
+    assertEquals(
+      updateBorrowerService["repository"].findByID(borrowerID),
+      new Borrower({
+        id: borrowerID,
+        firstName: 'Jane',
       }),
     );
   });
