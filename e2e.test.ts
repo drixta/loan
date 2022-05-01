@@ -12,6 +12,7 @@ import { taskInitializationService } from "./services/TaskInitializationService.
 import { taskStore } from "./repositories/MemoryTasksRepository.ts";
 import { taskDefInitializationService } from "./services/TaskDefInitializationService.ts";
 import { ID } from "./types.ts";
+import {taskResolverService} from "./services/TaskResolverService.ts";
 
 Deno.test("Loan Service", async (t) => {
   const loanID = "loan123";
@@ -81,8 +82,8 @@ Deno.test("Loan Service", async (t) => {
 });
 
 Deno.test("Task Initialization", async (t) => {
-  const loanID = "loan123";
-  const borrowerID = "borrower123";
+  const loanID1 = "loan456";
+  const loanID2 = "loan789";
   const taskDefs = JSON.parse(JSON.stringify([
     {
       "name": "Require purchase price for purchase loans",
@@ -113,11 +114,30 @@ Deno.test("Task Initialization", async (t) => {
   });
 
   await t.step("initialize task container", () => {
-    taskInitializationService.execute({ entityID: loanID, type: "loan" });
-    taskInitializationService.execute({
-      entityID: borrowerID,
-      type: "borrower",
-    });
-    assertEquals(taskStore[loanID][taskDefID], null);
+    taskInitializationService.execute({ entityID: loanID1, type: "loan" });
+    taskInitializationService.execute({ entityID: loanID2, type: "loan" });
+    assertEquals(taskStore[loanID1][taskDefID], null);
+    assertEquals(taskStore[loanID2][taskDefID], null);
+  });
+
+  await t.step("run a completed task", () => {
+    createLoanService.execute({ id: loanID1 });
+    updateLoanService.execute({ field: 'loanAmount', value: 10000, id: loanID1 });
+    taskResolverService.execute({type: "loan", field: "loanAmount", entityID: loanID1});
+    updateLoanService.execute({ field: 'loanType', value: "Purchase", id: loanID1 });
+    taskResolverService.execute({type: "loan", field: "loanType", entityID: loanID1});
+    updateLoanService.execute({ field: 'purchasePrice', value: 100, id: loanID1 });
+    taskResolverService.execute({type: "loan", field: "purchasePrice", entityID: loanID1});
+  });
+  await t.step("run a canceled task", () => {
+    createLoanService.execute({ id: loanID2 });
+    updateLoanService.execute({ field: 'loanAmount', value: 10000, id: loanID2 });
+    taskResolverService.execute({type: "loan", field: "loanAmount", entityID: loanID2});
+    updateLoanService.execute({ field: 'loanType', value: "Purchase", id: loanID2 });
+    taskResolverService.execute({type: "loan", field: "loanType", entityID: loanID2});
+    updateLoanService.execute({ field: 'loanAmount', value: null, id: loanID2 });
+    taskResolverService.execute({type: "loan", field: "loanAmount", entityID: loanID2});
+    updateLoanService.execute({ field: 'purchasePrice', value: 100, id: loanID2 });
+    taskResolverService.execute({type: "loan", field: "purchasePrice", entityID: loanID2});
   });
 });

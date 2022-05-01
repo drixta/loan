@@ -33,6 +33,11 @@ export class MemoryTaskDefsRepository implements ITaskDefsRepository {
       fieldToTaskDefStore[`${taskDef.entity}.${condition.field}`] ??= [];
       fieldToTaskDefStore[`${taskDef.entity}.${condition.field}`].push(id);
     });
+    // TODO: DRY
+    taskDef.completionConditions.forEach((condition) => {
+      fieldToTaskDefStore[`${taskDef.entity}.${condition.field}`] ??= [];
+      fieldToTaskDefStore[`${taskDef.entity}.${condition.field}`].push(id);
+    });
   }
 
   getTaskDefIDByEntityField({ type, field }: GetTaskDefIDByEntityFieldParams) {

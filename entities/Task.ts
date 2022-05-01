@@ -31,10 +31,10 @@ export const resolveCondition = (conditions: Condition[], pentity: Entity) => {
     const field = condition.field;
     const entity = JSON.parse(JSON.stringify(pentity));
     if (condition.comparator === "exists") {
-      return entity[field] !== "" && entity[field] !== null;
+      return entity[field] !== "" && entity[field] !== null && entity[field] !== undefined;
     }
     if (condition.comparator === "equals") {
-      return String(entity[field].toLowerCase().trim()) ===
+      return String(entity[field]?.toLowerCase().trim()) ===
         String(condition.value).toLowerCase().trim();
     }
   });
@@ -82,28 +82,25 @@ export class CompletedTaskState extends TaskState implements TaskState {
 
 export class Task {
   public readonly id: ID;
-  public readonly taskDef: TaskDefinition;
-  public readonly entity: Entity;
   public currentState: TaskState = new OpenTaskState(this);
 
-  constructor(props: Pick<Task, "id" | "taskDef" | "entity">) {
+  constructor(props: Pick<Task, "id">) {
     this.id = props.id;
-    this.taskDef = props.taskDef;
-    this.entity = props.entity;
   }
 
   setState(taskState: TaskState) {
     this.currentState = taskState;
   }
 
-  resolve() {
-    this.currentState.resolve(this.entity, this.taskDef);
+  resolve(entity: Entity, taskDef: TaskDefinition) {
+    this.currentState.resolve(entity, taskDef);
+    this.print(entity, taskDef);
   }
 
-  print() {
+  print(entity: Entity, taskDef: TaskDefinition) {
     printf(
       green(
-        `${this.entity.id}:${this.taskDef.name}:${this.currentState.displayName}`,
+        `${entity.id}:${taskDef.name}:${this.currentState.displayName}\n`,
       ),
     );
   }

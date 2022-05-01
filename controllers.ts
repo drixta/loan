@@ -1,5 +1,3 @@
-import { printf } from "https://deno.land/std@0.137.0/fmt/printf.ts";
-import { red } from "https://deno.land/std@0.137.0/fmt/colors.ts";
 import { createLoanService } from "./services/CreateLoanService.ts";
 import { createBorrowerService } from "./services/CreateBorrowerService.ts";
 import {
@@ -7,7 +5,6 @@ import {
   updateLoanService,
 } from "./services/UpdateFieldService.ts";
 
-import { MemoryTaskDefsRepository } from "./repositories/MemoryTaskDefsRepository.ts";
 import { TaskDefinition } from "./repositories/ITaskDefsRepository.ts";
 import { fifoEventBus } from "./providers/fifoEventBus.ts";
 import { taskInitializationService } from "./services/TaskInitializationService.ts";
@@ -24,6 +21,82 @@ import { taskResolverService } from "./services/TaskResolverService.ts";
 // }
 // const actionsJSON = await Deno.readTextFile(Deno.args[0]);
 // const tasksJSON = await Deno.readTextFile(Deno.args[1]);
+const actionsJSON = [
+  {
+    "action": "createLoan",
+    "loanIdentifier": "loan1"
+  },
+  {
+    "action": "createBorrower",
+    "loanIdentifier": "loan1",
+    "borrowerIdentifier": "borr1"
+  },
+  {
+    "action": "createBorrower",
+    "loanIdentifier": "loan1",
+    "borrowerIdentifier": "borr2"
+  },
+  {
+    "action": "setLoanField",
+    "loanIdentifier": "loan1",
+    "field": "loanAmount",
+    "value": 100000
+  },
+  {
+    "action": "setLoanField",
+    "loanIdentifier": "loan1",
+    "field": "loanType",
+    "value": "Purchase"
+  },
+  {
+    "action": "setBorrowerField",
+    "borrowerIdentifier": "borr1",
+    "field": "firstName",
+    "value": "Jane"
+  },
+  {
+    "action": "setBorrowerField",
+    "borrowerIdentifier": "borr1",
+    "field": "lastName",
+    "value": "Smith"
+  },
+  {
+    "action": "setBorrowerField",
+    "borrowerIdentifier": "borr2",
+    "field": "firstName",
+    "value": "John"
+  },
+  {
+    "action": "setBorrowerField",
+    "borrowerIdentifier": "borr2",
+    "field": "lastName",
+    "value": "Smith"
+  },
+  {
+    "action": "setBorrowerField",
+    "borrowerIdentifier": "borr2",
+    "field": "firstName",
+    "value": null
+  },
+  {
+    "action": "setLoanField",
+    "loanIdentifier": "loan1",
+    "field": "purchasePrice",
+    "value": 500000
+  },
+  {
+    "action": "setBorrowerField",
+    "borrowerIdentifier": "borr2",
+    "field": "firstName",
+    "value": "Joseph"
+  },
+  {
+    "action": "setBorrowerField",
+    "borrowerIdentifier": "borr2",
+    "field": "address",
+    "value": "500 California St."
+  }
+];
 
 const tasksJSON = [
   {
@@ -84,17 +157,18 @@ export const initializeTaskDefinition = () => {
   taskDefInitializationService.execute(taskDefs);
 };
 
-export const actionsRoute = {
+export const actionsRoute: any = {
   createLoan: (action: any) => {
-    createLoanService.execute(action.loanIdentifier);
+    createLoanService.execute({id: action.loanIdentifier});
   },
   createBorrower: (action: any) => {
     createBorrowerService.execute({
-      borrowerID: action.borrowerId,
+      borrowerID: action.borrowerIdentifier,
       loanID: action.loanIdentifier,
     });
   },
-  setLoanField: ({ loanIdentifier, field, value }: any) => {
+  setLoanField: (action: any) => {
+    const { loanIdentifier, field, value } = action;
     updateLoanService.execute({ id: loanIdentifier, field, value });
   },
   setBorrowerField: ({ borrowerIdentifier, field, value }: any) => {
@@ -102,26 +176,31 @@ export const actionsRoute = {
   },
 };
 
-fifoEventBus.subscribe("loan.create.completed", (params: any) => {
+fifoEventBus.subscribe("loan.create.completed", (_message: string, params: any) => {
   taskInitializationService.execute({ entityID: params.id, type: "loan" });
 });
 
-fifoEventBus.subscribe("borrower.create.completed", (params: any) => {
+fifoEventBus.subscribe("borrower.create.completed", (_message: string, params: any) => {
   taskInitializationService.execute({ entityID: params.id, type: "borrower" });
 });
 
-fifoEventBus.subscribe("loan.update.completed", (params: any) => {
+fifoEventBus.subscribe("loan.update.completed", (_message: string, params: any) => {
   taskResolverService.execute({
     type: "loan",
     field: params.field,
-    entity: params.entity,
+    entityID: params.entityID,
   });
 });
 
-fifoEventBus.subscribe("borrower.update.completed", (params: any) => {
+fifoEventBus.subscribe("borrower.update.completed", (_message: string, params: any) => {
   taskResolverService.execute({
     type: "borrower",
     field: params.field,
-    entity: params.entity,
+    entityID: params.entityID,
   });
 });
+
+initializeTaskDefinition();
+actionsJSON.forEach((action: any) => {
+  actionsRoute[action.action](action);
+})

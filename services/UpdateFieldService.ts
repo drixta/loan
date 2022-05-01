@@ -31,8 +31,8 @@ class UpdateFieldService<T> {
     clonedEntity[field] = value;
     this.repository.save(id, clonedEntity);
     fifoEventBus.publishSync(`${this.type}.update.completed`, {
-      ...params,
-      entity: clonedEntity,
+      field,
+      entityID: id,
       type: this.type,
     });
   }

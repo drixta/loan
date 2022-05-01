@@ -31,8 +31,7 @@ export class CreateBorrowerService {
       loan.borrowerID.push(borrowerID);
     }
     fifoEventBus.publishSync("borrower.create.completed", {
-      borrowerID,
-      loanID,
+      id: borrowerID,
     });
   }
 }
