@@ -6,6 +6,7 @@ import {
   updateBorrowerService,
   updateLoanService,
 } from "./services/UpdateFieldService.ts";
+import {fifoEventBus} from "./providers/fifoEventBus.ts";
 
 if (!Deno.args?.length && Deno.args.length !== 2) {
   printf(
@@ -35,3 +36,7 @@ export const actionsRoute = {
     updateBorrowerService.execute({ id: borrowerIdentifier, field, value });
   },
 };
+
+fifoEventBus.subscribe('loan.update.completed', (params) => {
+  processLoanAction.execute(params);
+});
