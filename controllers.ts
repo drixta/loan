@@ -6,7 +6,9 @@ import {
   updateBorrowerService,
   updateLoanService,
 } from "./services/UpdateFieldService.ts";
-import { fifoEventBus } from "./providers/fifoEventBus.ts";
+
+import { MemoryTasksDefRepository } from "./repositories/MemoryTasksDefRepository.ts";
+import { TasksDefinition } from "./repositories/ITasksDefRepository.ts";
 
 if (!Deno.args?.length && Deno.args.length !== 2) {
   printf(
@@ -18,6 +20,15 @@ if (!Deno.args?.length && Deno.args.length !== 2) {
 }
 const actionsJSON = await Deno.readTextFile(Deno.args[0]);
 const tasksJSON = await Deno.readTextFile(Deno.args[1]);
+
+// TODO: Move to a service
+const initializeTaskDefition = () => {
+  JSON.parse(tasksJSON).forEach((taskDef: TasksDefinition) => {
+    const tasksDefRepository = new MemoryTasksDefRepository();
+    const newUUID = crypto.randomUUID();
+    tasksDefRepository.save(newUUID, taskDef);
+  });
+};
 
 export const actionsRoute = {
   createLoan: (action: any) => {
@@ -37,6 +48,6 @@ export const actionsRoute = {
   },
 };
 
-fifoEventBus.subscribe("loan.update.completed", (params) => {
-  processLoanAction.execute(params);
-});
+// fifoEventBus.subscribe("loan.update.completed", (params) => {
+//   processLoanAction.execute(params);
+// });

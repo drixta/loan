@@ -22,4 +22,5 @@ export interface SaveParams {
 export interface ITasksRepository {
   getTask(params: GetTaskParams): Task | undefined;
   save(params: SaveParams): void;
+  listAllTasks(): Task[];
 }

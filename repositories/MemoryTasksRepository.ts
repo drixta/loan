@@ -1,5 +1,3 @@
-import { ITasksDefRepository, TasksDefinition } from "./ITasksDefRepository.ts";
-import { ID } from "../types.ts";
 import {
   GetTaskParams,
   ITasksRepository,
@@ -24,5 +22,18 @@ export class MemoryTasksRepository implements ITasksRepository {
   save({ entityID, taskDefID, task }: SaveParams) {
     taskStore[entityID] ??= {};
     taskStore[entityID][taskDefID] = task;
+  }
+
+  listAllTasks() {
+    const taskList = [];
+    for (const entityID in taskStore) {
+      for (const taskDefID in taskStore[entityID]) {
+        const task = taskStore[entityID][taskDefID];
+        if (task) {
+          taskList.push(taskStore[entityID][taskDefID]);
+        }
+      }
+    }
+    return taskList;
   }
 }

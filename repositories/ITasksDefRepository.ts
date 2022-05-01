@@ -1,15 +1,18 @@
-import { ID } from "../types.ts";
+import { EntityType, ID } from "../types.ts";
 
 export type Condition =
-  | {
+  & {
     field: string;
-  } & {
-    comparator: "exists";
   }
-  | {
-    comparator: "equals";
-    value: string | number;
-  };
+  & (
+    | {
+      comparator: "exists";
+    }
+    | {
+      comparator: "equals";
+      value: string | number;
+    }
+  );
 
 export interface TasksDefinition {
   name: string;
@@ -18,7 +21,18 @@ export interface TasksDefinition {
   completionConditions: Condition[];
 }
 
+export interface SaveParams {
+  id: ID;
+  taskDef: TasksDefinition;
+}
+
+export interface GetTaskDefIDByEntityFieldParams {
+  type: EntityType;
+  field: string;
+}
+
 export interface ITasksDefRepository {
-  findByID(id: ID): TasksDefinition | undefined;
-  save(id: ID, taskDef: TasksDefinition): void;
+  getTaskDef(id: ID): TasksDefinition | undefined;
+  getTaskDefIDByEntityField(params: GetTaskDefIDByEntityFieldParams): void;
+  save(params: SaveParams): void;
 }
