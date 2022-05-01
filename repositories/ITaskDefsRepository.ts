@@ -14,7 +14,7 @@ export type Condition =
     }
   );
 
-export interface TasksDefinition {
+export interface TaskDefinition {
   name: string;
   entity: string;
   triggerConditions: Condition[];
@@ -23,7 +23,7 @@ export interface TasksDefinition {
 
 export interface SaveParams {
   id: ID;
-  taskDef: TasksDefinition;
+  taskDef: TaskDefinition;
 }
 
 export interface GetTaskDefIDByEntityFieldParams {
@@ -31,8 +31,8 @@ export interface GetTaskDefIDByEntityFieldParams {
   field: string;
 }
 
-export interface ITasksDefRepository {
-  getTaskDef(id: ID): TasksDefinition | undefined;
+export interface ITaskDefsRepository {
+  getTaskDef(id: ID): TaskDefinition | undefined;
   getTaskDefsIDOfType(type: EntityType): ID[];
   getTaskDefIDByEntityField(params: GetTaskDefIDByEntityFieldParams): void;
   save(params: SaveParams): void;

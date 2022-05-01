@@ -8,7 +8,11 @@ import {
 } from "./services/UpdateFieldService.ts";
 import { Borrower } from "./entities/Borrower.ts";
 import { initializeTaskDefinition } from "./controllers.ts";
-import { fieldToTaskDefStore } from "./repositories/MemoryTasksDefRepository.ts";
+import { taskDefinitionStore } from "./repositories/MemoryTaskDefsRepository.ts";
+import { taskInitializationService } from "./services/TaskInitializationService.ts";
+import {taskStore} from "./repositories/MemoryTasksRepository.ts";
+import {taskDefInitializationService} from "./services/TaskDefInitializationService.ts";
+import {ID} from "./types.ts";
 
 Deno.test("Loan Service", async (t) => {
   const loanID = "loan123";
@@ -74,5 +78,44 @@ Deno.test("Loan Service", async (t) => {
         firstName: "Jane",
       }),
     );
+  });
+});
+
+Deno.test("Task Initialization", async (t) => {
+  const loanID = "loan123";
+  const borrowerID = "borrower123";
+  const taskDefs = JSON.parse(JSON.stringify([
+    {
+      "name": "Require purchase price for purchase loans",
+      "entity": "loan",
+      "triggerConditions": [
+        {
+          "field": "loanAmount",
+          "comparator": "exists"
+        },
+        {
+          "field": "loanType",
+          "comparator": "equals",
+          "value": "Purchase"
+        }
+      ],
+      "completionConditions": [
+        {
+          "field": "purchasePrice",
+          "comparator": "exists"
+        }
+      ]
+    }
+  ]));
+  let taskDefID: ID = '';
+  await t.step("initialize tasks definition", () => {
+    taskDefInitializationService.execute(taskDefs);
+    taskDefID = Object.keys(taskDefinitionStore)[0];
+  });
+
+  await t.step("initialize task container", () => {
+    taskInitializationService.execute({ entityID: loanID, type: "loan" });
+    taskInitializationService.execute({ entityID: borrowerID, type: "borrower" });
+    assertEquals(taskStore[loanID][taskDefID], null);
   });
 });

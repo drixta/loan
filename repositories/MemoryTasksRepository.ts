@@ -5,7 +5,7 @@ import {
   Task,
 } from "./ITasksRepository.ts";
 
-const taskStore: {
+export const taskStore: {
   [entityID: string]: {
     [taskDefID: string]: Task | null;
   };

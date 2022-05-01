@@ -1,26 +1,26 @@
 import {
   GetTaskDefIDByEntityFieldParams,
-  ITasksDefRepository,
+  ITaskDefsRepository,
   SaveParams,
-  TasksDefinition,
-} from "./ITasksDefRepository.ts";
-import {EntityType, ID} from "../types.ts";
+  TaskDefinition,
+} from "./ITaskDefsRepository.ts";
+import { EntityType, ID } from "../types.ts";
 
 // Export only for tests
-export const taskDefinitionStore: {[id: ID]: TasksDefinition} = {};
+export const taskDefinitionStore: { [id: ID]: TaskDefinition } = {};
 // Export only for tests
 // Export only for tests
 export const fieldToTaskDefStore: {
   [field: string]: ID[];
 } = {};
 
-export class MemoryTasksDefRepository implements ITasksDefRepository {
-  getTaskDef(id: ID): TasksDefinition | undefined {
+export class MemoryTaskDefsRepository implements ITaskDefsRepository {
+  getTaskDef(id: ID): TaskDefinition | undefined {
     return taskDefinitionStore[id];
   }
 
-  // We're doing a table scan here because this function gets called once on initialization
-  // Instead of increasing complexity by adding another entity type level to the datastore
+  // We can improve run time by adding entity type key above the object but since the task definition list
+  // is small, we'll table scan it for now
   getTaskDefsIDOfType(type: EntityType): ID[] {
     return Object.entries(taskDefinitionStore).filter(([_, taskDef]) => {
       return taskDef.entity === type;
