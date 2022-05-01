@@ -16,18 +16,18 @@ export class CreateBorrowerService {
   private loansRepository: IEntitiesRepository<Loan> =
     new MemoryLoansRepository();
 
-  execute(data: CreateBorrowerRequestParams) {
+  execute({ borrowerID, loanID }: CreateBorrowerRequestParams) {
     const borrowerAlreadyExists = this.borrowersRepository.findByID(
-      data.borrowerID,
+      borrowerID,
     );
     if (borrowerAlreadyExists) {
       throw new Error("Borrower already exists.");
     }
-    const borrower = new Borrower({ id: data.borrowerID });
-    this.borrowersRepository.save(data.borrowerID, borrower);
-    const loan = this.loansRepository.findByID(data.loanID);
+    const borrower = new Borrower({ id: borrowerID });
+    this.borrowersRepository.save(borrowerID, borrower);
+    const loan = this.loansRepository.findByID(loanID);
     if (loan?.borrowerID) {
-      loan.borrowerID.push(data.borrowerID);
+      loan.borrowerID.push(borrowerID);
     }
   }
 }

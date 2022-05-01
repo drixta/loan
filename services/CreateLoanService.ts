@@ -11,13 +11,13 @@ export class CreateLoanService {
   private loansRepository: IEntitiesRepository<Loan> =
     new MemoryLoansRepository();
 
-  execute(data: CreateLoanRequestParams) {
-    const loanAlreadyExists = this.loansRepository.findByID(data.id);
+  execute({ id }: CreateLoanRequestParams) {
+    const loanAlreadyExists = this.loansRepository.findByID(id);
     if (loanAlreadyExists) {
       throw new Error("Loan already exists.");
     }
-    const loan = new Loan(data);
-    this.loansRepository.save(data.id, loan);
+    const loan = new Loan({ id });
+    this.loansRepository.save(id, loan);
   }
 }
 

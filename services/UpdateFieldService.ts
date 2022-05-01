@@ -3,6 +3,7 @@ import { IEntitiesRepository } from "../repositories/IEntitiesRepository.ts";
 import { MemoryLoansRepository } from "../repositories/MemoryLoansRepository.ts";
 import { MemoryBorrowersRepository } from "../repositories/MemoryBorrowersRepository.ts";
 import { cloneInstance } from "../utils/cloneInstance.ts";
+import { fifoEventBus } from "../providers/fifoEventBus.ts";
 
 interface UpdateFieldRequestParams {
   id: ID;
@@ -10,28 +11,34 @@ interface UpdateFieldRequestParams {
   value: string | number | null;
 }
 
-export class UpdateFieldService<T> {
-  private repository: IEntitiesRepository<T>;
-  constructor(repository: IEntitiesRepository<T>) {
+class UpdateFieldService<T> {
+  private readonly repository: IEntitiesRepository<T>;
+  private readonly type: EntityType;
+  constructor(type: EntityType, repository: IEntitiesRepository<T>) {
     this.repository = repository;
+    this.type = type;
   }
 
-  execute(data: UpdateFieldRequestParams) {
-    const entity = this.repository.findByID(data.id);
+  execute(params: UpdateFieldRequestParams) {
+    const { id, field, value } = params;
+    const entity = this.repository.findByID(id);
     if (!entity) {
       throw new Error("Cannot update non-existent entity");
     }
 
     const clonedEntity = cloneInstance<T>(entity);
     // @ts-ignore
-    clonedEntity[data.field] = data.value;
-    this.repository.save(data.id, clonedEntity);
+    clonedEntity[field] = value;
+    this.repository.save(id, clonedEntity);
+    fifoEventBus.publishSync(`${this.type}.update.completed`, params);
   }
 }
 
 export const updateLoanService = new UpdateFieldService(
+  "loan",
   new MemoryLoansRepository(),
 );
 export const updateBorrowerService = new UpdateFieldService(
+  "borrower",
   new MemoryBorrowersRepository(),
 );
