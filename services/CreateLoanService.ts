@@ -1,16 +1,17 @@
 import { ID } from "../types.ts";
-import { ILoansRepository } from "../repositories/ILoansRepository.ts";
+import { IEntitiesRepository } from "../repositories/IEntitiesRepository.ts";
 import { MemoryLoansRepository } from "../repositories/MemoryLoansRepository.ts";
 import { Loan } from "../entities/Loan.ts";
 
-interface CreateUserRequestParams {
+interface CreateLoanRequestParams {
   id: ID;
 }
 
 export class CreateLoanService {
-  private loansRepository: ILoansRepository = new MemoryLoansRepository();
+  private loansRepository: IEntitiesRepository<Loan> =
+    new MemoryLoansRepository();
 
-  execute(data: CreateUserRequestParams) {
+  execute(data: CreateLoanRequestParams) {
     const loanAlreadyExists = this.loansRepository.findByID(data.id);
     if (loanAlreadyExists) {
       throw new Error("Loan already exists.");

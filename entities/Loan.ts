@@ -6,7 +6,7 @@ export class Loan {
   public loanType?: string;
   public purchasePrice?: number;
   public propertyAddress?: string;
-  public borrowerId?: string[];
+  public borrowerID?: string[];
 
   constructor(props: Loan) {
     this.id = props.id;
@@ -14,6 +14,6 @@ export class Loan {
     this.loanType = props.loanType;
     this.purchasePrice = props.purchasePrice;
     this.propertyAddress = props.propertyAddress;
-    this.borrowerId = [];
+    this.borrowerID = props.borrowerID || [];
   }
 }
