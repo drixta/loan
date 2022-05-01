@@ -1,13 +1,15 @@
-import {EntityType, ID} from "../types.ts";
+import { ID } from "../types.ts";
 
-export type Condition = {
-  field: string
-} & {
-  comparator: 'exists'
-} | {
-  comparator: 'equals'
-  value: string | number;
-}
+export type Condition =
+  | {
+    field: string;
+  } & {
+    comparator: "exists";
+  }
+  | {
+    comparator: "equals";
+    value: string | number;
+  };
 
 export interface TasksDefinition {
   name: string;
@@ -17,6 +19,6 @@ export interface TasksDefinition {
 }
 
 export interface ITasksDefRepository {
-  findByIDAndType(id: ID, type: EntityType): TasksDefinition | undefined;
+  findByID(id: ID): TasksDefinition | undefined;
   save(id: ID, taskDef: TasksDefinition): void;
 }

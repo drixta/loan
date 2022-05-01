@@ -2,7 +2,7 @@ import { ID } from "../types.ts";
 
 export type EntityStore<T> = Map<ID, T>;
 
-export abstract class MemoryRepository<T> {
+export abstract class MemoryEntityRepository<T> {
   protected memoryStore: EntityStore<T>;
 
   protected constructor(store: EntityStore<T>) {
