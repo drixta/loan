@@ -1,4 +1,4 @@
-import {FieldValue, ID} from "../../../types.ts";
+import { FieldValue, ID } from "../../../types.ts";
 
 export interface CreateLoanAction {
   action: "createLoan";

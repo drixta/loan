@@ -1,6 +1,9 @@
 import { ID } from "../../types.ts";
 import { taskDefInitializationService } from "./services/TaskDefInitializationService.ts";
-import {fieldToTaskDefStore, taskDefinitionStore} from "./repositories/MemoryTaskDefsRepository.ts";
+import {
+  fieldToTaskDefStore,
+  taskDefinitionStore,
+} from "./repositories/MemoryTaskDefsRepository.ts";
 import { taskInitializationService } from "./services/TaskInitializationService.ts";
 import { assertEquals } from "https://deno.land/std@0.137.0/testing/asserts.ts";
 import { taskStore } from "./repositories/MemoryTasksRepository.ts";
@@ -8,7 +11,7 @@ import { createLoanService } from "../LoanManager/services/CreateLoanService.ts"
 import { updateLoanService } from "../LoanManager/services/UpdateFieldService.ts";
 import { taskResolverService } from "./services/TaskResolverService.ts";
 
-(window as any)["env"] = 'Test';
+(window as any)["env"] = "Test";
 
 Deno.test("Task Resolver", async (t) => {
   const loanID1 = "loan456";
@@ -223,10 +226,11 @@ Deno.test("Task Resolver", async (t) => {
 });
 
 Deno.test("Empty Task Resolver", async (t) => {
-  const loanID = 'EmptyLoanTask123';
+  const loanID = "EmptyLoanTask123";
   const emptyCompleteConditionTask = JSON.parse(JSON.stringify([
     {
-      "name": "Require purchase price for purchase loans without complete conditions",
+      "name":
+        "Require purchase price for purchase loans without complete conditions",
       "entity": "loan",
       "triggerConditions": [
         {
@@ -242,11 +246,12 @@ Deno.test("Empty Task Resolver", async (t) => {
       "completionConditions": [],
     },
   ]));
-  const taskDefID = taskDefInitializationService.execute(emptyCompleteConditionTask)[0];
+  const taskDefID =
+    taskDefInitializationService.execute(emptyCompleteConditionTask)[0];
   taskInitializationService.execute({ entityID: loanID, type: "loan" });
   await t.step("rerun a completed task", async (t) => {
     await t.step("initialize service and create a Completed task", () => {
-      createLoanService.execute({id: loanID});
+      createLoanService.execute({ id: loanID });
       updateLoanService.execute({
         field: "loanAmount",
         value: 10000,
@@ -278,4 +283,4 @@ Deno.test("Empty Task Resolver", async (t) => {
       );
     });
   });
-})
+});

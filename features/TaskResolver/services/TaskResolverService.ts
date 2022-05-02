@@ -6,7 +6,7 @@ import { EntityType, ID } from "../../../types.ts";
 import { MemoryLoansRepository } from "../../LoanManager/repositories/MemoryLoansRepository.ts";
 import { MemoryBorrowersRepository } from "../../LoanManager/repositories/MemoryBorrowersRepository.ts";
 import { Entity, resolveCondition, Task } from "../entities/Task.ts";
-import {TaskDefinition} from "../repositories/ITaskDefsRepository.ts";
+import { TaskDefinition } from "../repositories/ITaskDefsRepository.ts";
 
 interface TaskResolverParams {
   type: EntityType;
@@ -38,11 +38,11 @@ class TaskResolverService {
   }
 
   private printTasks() {
-    if ((window as any)["env"] != 'Test') {
+    if ((window as any)["env"] != "Test") {
       const allTasks = this.taskRepository.listAllTasks();
       allTasks.forEach((task, index) => {
         task.print();
-      })
+      });
     }
   }
 
@@ -65,13 +65,12 @@ class TaskResolverService {
   }
 
   execute({ type, field, entityID }: TaskResolverParams) {
-
     const entity = this.getEntity(entityID, type);
     const taskDefIDs = this.taskDefRepository.getTaskDefIDByEntityField({
       type,
       field,
     });
-    if ((window as any)["env"] != 'Test') {
+    if ((window as any)["env"] != "Test") {
       printf(red(`=====Action Executed=====\n`));
     }
     taskDefIDs.forEach((taskDefID) => {

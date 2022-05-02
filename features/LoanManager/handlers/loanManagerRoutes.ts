@@ -4,7 +4,12 @@ import {
   updateBorrowerService,
   updateLoanService,
 } from "../services/UpdateFieldService.ts";
-import {CreateBorrowerAction, CreateLoanAction, SetBorrowerFieldAction, SetLoanFieldAction} from "./interfaces.ts";
+import {
+  CreateBorrowerAction,
+  CreateLoanAction,
+  SetBorrowerFieldAction,
+  SetLoanFieldAction,
+} from "./interfaces.ts";
 
 export const loanManageRoutes: { [actionName: string]: Function } = {
   createLoan: (action: CreateLoanAction) => {

@@ -4,7 +4,7 @@ import { MemoryBorrowersRepository } from "../repositories/MemoryBorrowersReposi
 import { EntityType, ID } from "../../../types.ts";
 import { fifoEventBus } from "../../../providers/fifoEventBus.ts";
 import { cloneInstance } from "../../../utils/cloneInstance.ts";
-import {Entity} from "../../TaskResolver/entities/Task.ts";
+import { Entity } from "../../TaskResolver/entities/Task.ts";
 
 interface UpdateFieldRequestParams {
   id: ID;

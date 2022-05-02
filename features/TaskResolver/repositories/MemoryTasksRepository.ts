@@ -4,12 +4,10 @@ import {
   SaveParams,
 } from "./ITasksRepository.ts";
 import { Task } from "../entities/Task.ts";
+import { ID } from "../../../types.ts";
 
-export const taskStore: {
-  [entityID: string]: {
-    [taskDefID: string]: Task | null;
-  };
-} = {};
+type TaskID = Record<ID, Task | null>;
+export const taskStore: Record<ID, TaskID> = {};
 
 export class MemoryTasksRepository implements ITasksRepository {
   getTask({

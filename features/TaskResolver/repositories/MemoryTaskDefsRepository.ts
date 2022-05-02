@@ -1,5 +1,4 @@
 import {
-  Condition,
   GetTaskDefIDByEntityFieldParams,
   ITaskDefsRepository,
   SaveParams,
@@ -8,12 +7,9 @@ import {
 import { EntityType, ID } from "../../../types.ts";
 
 // Export only for tests
-export const taskDefinitionStore: { [id: ID]: TaskDefinition } = {};
+export const taskDefinitionStore: Record<ID, TaskDefinition> = {};
 // Export only for tests
-// Export only for tests
-export const fieldToTaskDefStore: {
-  [field: string]: ID[];
-} = {};
+export const fieldToTaskDefStore: Record<string, ID[]> = {};
 
 export class MemoryTaskDefsRepository implements ITaskDefsRepository {
   getTaskDef(id: ID): TaskDefinition | undefined {
@@ -30,10 +26,12 @@ export class MemoryTaskDefsRepository implements ITaskDefsRepository {
 
   save({ id, taskDef }: SaveParams) {
     taskDefinitionStore[id] = taskDef;
-    taskDef.triggerConditions.concat(taskDef.completionConditions).forEach((condition) => {
-      fieldToTaskDefStore[`${taskDef.entity}.${condition.field}`] ??= [];
-      fieldToTaskDefStore[`${taskDef.entity}.${condition.field}`].push(id);
-    });
+    taskDef.triggerConditions.concat(taskDef.completionConditions).forEach(
+      (condition) => {
+        fieldToTaskDefStore[`${taskDef.entity}.${condition.field}`] ??= [];
+        fieldToTaskDefStore[`${taskDef.entity}.${condition.field}`].push(id);
+      },
+    );
   }
 
   getTaskDefIDByEntityField({ type, field }: GetTaskDefIDByEntityFieldParams) {

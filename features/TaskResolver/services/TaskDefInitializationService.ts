@@ -1,6 +1,6 @@
 import { MemoryTaskDefsRepository } from "../repositories/MemoryTaskDefsRepository.ts";
 import { TaskDefinition } from "../repositories/ITaskDefsRepository.ts";
-import {ID} from "../../../types.ts";
+import { ID } from "../../../types.ts";
 
 class TaskDefInitializationService {
   private readonly taskDefsRepository: MemoryTaskDefsRepository =
@@ -13,7 +13,7 @@ class TaskDefInitializationService {
       const populatedTaskDef = {
         ...taskDef,
         id: newUUID,
-      }
+      };
       this.taskDefsRepository.save({ id: newUUID, taskDef: populatedTaskDef });
       taskDefsID.push(newUUID);
     });
