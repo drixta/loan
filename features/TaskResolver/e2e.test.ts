@@ -1,7 +1,6 @@
 import { ID } from "../../types.ts";
 import { taskDefInitializationService } from "./services/TaskDefInitializationService.ts";
 import {
-  fieldToTaskDefStore,
   taskDefinitionStore,
 } from "./repositories/MemoryTaskDefsRepository.ts";
 import { taskInitializationService } from "./services/TaskInitializationService.ts";

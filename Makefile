@@ -1,3 +1,10 @@
+mac_install:
+	brew install deno
+	brew install lcov
+windows_install:
+	iwr https://deno.land/install.ps1 -useb | iex
+compile:
+	deno compile --allow-read entry.ts
 test:
 	deno test
 coverage:
