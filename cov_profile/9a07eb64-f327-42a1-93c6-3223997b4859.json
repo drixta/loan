@@ -1,0 +1,51 @@
+{
+  "scriptId": "80",
+  "url": "file:///Users/quanpham/vesta-hw-v2/features/TaskResolver/repositories/MemoryTaskDefsRepository.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 5006, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getTaskDef",
+      "ranges": [{ "startOffset": 122, "endOffset": 184, "count": 7 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getTaskDefsIDOfType",
+      "ranges": [{ "startOffset": 189, "endOffset": 376, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 275, "endOffset": 348, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 354, "endOffset": 368, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "save",
+      "ranges": [{ "startOffset": 381, "endOffset": 922, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 490, "endOffset": 678, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 726, "endOffset": 914, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getTaskDefIDByEntityField",
+      "ranges": [{ "startOffset": 927, "endOffset": 1033, "count": 7 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

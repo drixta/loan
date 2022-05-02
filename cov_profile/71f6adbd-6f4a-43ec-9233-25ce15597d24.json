@@ -1,0 +1,176 @@
+{
+  "scriptId": "80",
+  "url": "https://deno.land/std@0.137.0/testing/asserts.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 65969, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "<instance_members_initializer>",
+      "ranges": [{ "startOffset": 200, "endOffset": 324, "count": 0 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "isKeyedCollection",
+      "ranges": [{ "startOffset": 325, "endOffset": 417, "count": 8 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 400, "endOffset": 413, "count": 11 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "equal",
+      "ranges": [{ "startOffset": 425, "endOffset": 3564, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "compare",
+      "ranges": [
+        { "startOffset": 488, "endOffset": 3554, "count": 35 },
+        { "startOffset": 527, "endOffset": 543, "count": 17 },
+        { "startOffset": 544, "endOffset": 663, "count": 17 },
+        { "startOffset": 581, "endOffset": 603, "count": 0 },
+        { "startOffset": 642, "endOffset": 661, "count": 0 },
+        { "startOffset": 665, "endOffset": 720, "count": 0 },
+        { "startOffset": 751, "endOffset": 771, "count": 0 },
+        { "startOffset": 773, "endOffset": 1003, "count": 0 },
+        { "startOffset": 1038, "endOffset": 1062, "count": 0 },
+        { "startOffset": 1064, "endOffset": 1141, "count": 0 },
+        { "startOffset": 1171, "endOffset": 1207, "count": 27 },
+        { "startOffset": 1207, "endOffset": 1246, "count": 8 },
+        { "startOffset": 1247, "endOffset": 1251, "count": 8 },
+        { "startOffset": 1252, "endOffset": 1276, "count": 8 },
+        { "startOffset": 1278, "endOffset": 3526, "count": 8 },
+        { "startOffset": 1332, "endOffset": 1377, "count": 0 },
+        { "startOffset": 1440, "endOffset": 1631, "count": 0 },
+        { "startOffset": 1694, "endOffset": 1885, "count": 0 },
+        { "startOffset": 1921, "endOffset": 1965, "count": 0 },
+        { "startOffset": 1996, "endOffset": 2001, "count": 0 },
+        { "startOffset": 2028, "endOffset": 2033, "count": 0 },
+        { "startOffset": 2043, "endOffset": 2088, "count": 0 },
+        { "startOffset": 2126, "endOffset": 2149, "count": 0 },
+        { "startOffset": 2151, "endOffset": 2762, "count": 0 },
+        { "startOffset": 2965, "endOffset": 3228, "count": 30 },
+        { "startOffset": 3023, "endOffset": 3076, "count": 0 },
+        { "startOffset": 3161, "endOffset": 3214, "count": 0 },
+        { "startOffset": 3319, "endOffset": 3491, "count": 0 },
+        { "startOffset": 3526, "endOffset": 3553, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "constructorsEqual",
+      "ranges": [
+        { "startOffset": 3565, "endOffset": 3753, "count": 8 },
+        { "startOffset": 3643, "endOffset": 3696, "count": 0 },
+        { "startOffset": 3697, "endOffset": 3750, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "assert",
+      "ranges": [{ "startOffset": 3761, "endOffset": 3858, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assertEquals",
+      "ranges": [
+        { "startOffset": 3866, "endOffset": 4637, "count": 5 },
+        { "startOffset": 3969, "endOffset": 4189, "count": 0 },
+        { "startOffset": 4241, "endOffset": 4268, "count": 0 },
+        { "startOffset": 4281, "endOffset": 4341, "count": 0 },
+        { "startOffset": 4485, "endOffset": 4636, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "assertNotEquals",
+      "ranges": [{ "startOffset": 4645, "endOffset": 5174, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assertStrictEquals",
+      "ranges": [{ "startOffset": 5182, "endOffset": 6429, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assertNotStrictEquals",
+      "ranges": [{ "startOffset": 6437, "endOffset": 6652, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assertAlmostEquals",
+      "ranges": [{ "startOffset": 6660, "endOffset": 7119, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assertInstanceOf",
+      "ranges": [{ "startOffset": 7127, "endOffset": 8174, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assertExists",
+      "ranges": [{ "startOffset": 8182, "endOffset": 8424, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assertStringIncludes",
+      "ranges": [{ "startOffset": 8432, "endOffset": 8677, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assertArrayIncludes",
+      "ranges": [{ "startOffset": 8685, "endOffset": 9320, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assertMatch",
+      "ranges": [{ "startOffset": 9328, "endOffset": 9558, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assertNotMatch",
+      "ranges": [{ "startOffset": 9566, "endOffset": 9802, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assertObjectMatch",
+      "ranges": [{ "startOffset": 9810, "endOffset": 11869, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "fail",
+      "ranges": [{ "startOffset": 11877, "endOffset": 11963, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assertIsError",
+      "ranges": [{ "startOffset": 11971, "endOffset": 12781, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assertThrows",
+      "ranges": [{ "startOffset": 12789, "endOffset": 13855, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "assertRejects",
+      "ranges": [{ "startOffset": 13863, "endOffset": 14954, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "unimplemented",
+      "ranges": [{ "startOffset": 14962, "endOffset": 15047, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "unreachable",
+      "ranges": [{ "startOffset": 15055, "endOffset": 15126, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

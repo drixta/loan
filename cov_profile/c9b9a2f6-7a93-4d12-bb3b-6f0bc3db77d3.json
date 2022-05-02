@@ -1,0 +1,36 @@
+{
+  "scriptId": "78",
+  "url": "file:///Users/quanpham/vesta-hw-v2/features/TaskResolver/e2e.test.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 13678, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 673, "endOffset": 4113, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1513, "endOffset": 1639, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1688, "endOffset": 1979, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2023, "endOffset": 2909, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2952, "endOffset": 4109, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

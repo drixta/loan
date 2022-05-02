@@ -1,0 +1,24 @@
+{
+  "scriptId": "81",
+  "url": "file:///Users/quanpham/vesta-hw-v2/features/LoanManager/entities/Loan.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1919, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "<instance_members_initializer>",
+      "ranges": [{ "startOffset": 7, "endOffset": 412, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "Loan",
+      "ranges": [
+        { "startOffset": 118, "endOffset": 410, "count": 4 },
+        { "startOffset": 398, "endOffset": 403, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

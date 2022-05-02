@@ -1,0 +1,30 @@
+{
+  "scriptId": "81",
+  "url": "file:///Users/quanpham/vesta-hw-v2/features/TaskResolver/repositories/MemoryTasksRepository.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2926, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getTask",
+      "ranges": [{ "startOffset": 70, "endOffset": 158, "count": 7 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "save",
+      "ranges": [{ "startOffset": 163, "endOffset": 289, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "listAllTasks",
+      "ranges": [
+        { "startOffset": 294, "endOffset": 645, "count": 7 },
+        { "startOffset": 382, "endOffset": 614, "count": 14 },
+        { "startOffset": 530, "endOffset": 590, "count": 9 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

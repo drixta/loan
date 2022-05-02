@@ -1,0 +1,16 @@
+{
+  "scriptId": "90",
+  "url": "file:///Users/quanpham/vesta-hw-v2/features/LoanManager/repositories/MemoryBorrowersRepository.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1336, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "MemoryBorrowersRepository",
+      "ranges": [{ "startOffset": 180, "endOffset": 231, "count": 2 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

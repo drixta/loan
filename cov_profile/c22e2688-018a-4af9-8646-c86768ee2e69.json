@@ -1,0 +1,16 @@
+{
+  "scriptId": "94",
+  "url": "file:///Users/quanpham/vesta-hw-v2/utils/cloneInstance.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 758, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "cloneInstance",
+      "ranges": [{ "startOffset": 7, "endOffset": 127, "count": 7 }],
+      "isBlockCoverage": true
+    }
+  ]
+}
