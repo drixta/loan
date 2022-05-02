@@ -14,27 +14,6 @@ import {
 } from "./features/LoanManager/services/UpdateFieldService.ts";
 import { createBorrowerService } from "./features/LoanManager/services/CreateBorrowerService.ts";
 
-export const actionsRoute: { [actionName: string]: Function } = {
-  createLoan: (action: CreateLoanAction) => {
-    createLoanService.execute({ id: action.loanIdentifier });
-  },
-  createBorrower: (action: CreateBorrowerAction) => {
-    createBorrowerService.execute({
-      borrowerID: action.borrowerIdentifier,
-      loanID: action.loanIdentifier,
-    });
-  },
-  setLoanField: (action: SetLoanFieldAction) => {
-    const { loanIdentifier, field, value } = action;
-    updateLoanService.execute({ id: loanIdentifier, field, value });
-  },
-  setBorrowerField: (
-    { borrowerIdentifier, field, value }: SetBorrowerFieldAction,
-  ) => {
-    updateBorrowerService.execute({ id: borrowerIdentifier, field, value });
-  },
-};
-
 fifoEventBus.subscribe(
   "loan.create.completed",
   (_message: string, params: any) => {
