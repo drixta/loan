@@ -1,4 +1,5 @@
 import {
+  Condition,
   GetTaskDefIDByEntityFieldParams,
   ITaskDefsRepository,
   SaveParams,
@@ -29,12 +30,7 @@ export class MemoryTaskDefsRepository implements ITaskDefsRepository {
 
   save({ id, taskDef }: SaveParams) {
     taskDefinitionStore[id] = taskDef;
-    taskDef.triggerConditions.forEach((condition) => {
-      fieldToTaskDefStore[`${taskDef.entity}.${condition.field}`] ??= [];
-      fieldToTaskDefStore[`${taskDef.entity}.${condition.field}`].push(id);
-    });
-    // TODO: DRY
-    taskDef.completionConditions.forEach((condition) => {
+    taskDef.triggerConditions.concat(taskDef.completionConditions).forEach((condition) => {
       fieldToTaskDefStore[`${taskDef.entity}.${condition.field}`] ??= [];
       fieldToTaskDefStore[`${taskDef.entity}.${condition.field}`].push(id);
     });
