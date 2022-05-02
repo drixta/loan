@@ -5,6 +5,7 @@ export interface CreateEvent {
 }
 
 export interface UpdateEvent {
+  actionName: string;
   field: string;
   entityID: ID;
   type: EntityType;

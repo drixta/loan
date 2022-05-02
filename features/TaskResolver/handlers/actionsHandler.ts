@@ -21,21 +21,23 @@ export const initializeSubscriptionHandlers = () => {
   );
   fifoEventBus.subscribe(
     "loan.update.completed",
-    (_message: string, params: UpdateEvent) => {
+    (_message: string, { field, entityID, actionName }: UpdateEvent) => {
       taskResolverService.execute({
         type: "loan",
-        field: params.field,
-        entityID: params.entityID,
+        field,
+        entityID,
+        actionName,
       });
     },
   );
   fifoEventBus.subscribe(
     "borrower.update.completed",
-    (_message: string, params: UpdateEvent) => {
+    (_message: string, { field, entityID, actionName }: UpdateEvent) => {
       taskResolverService.execute({
         type: "borrower",
-        field: params.field,
-        entityID: params.entityID,
+        field,
+        entityID,
+        actionName,
       });
     },
   );

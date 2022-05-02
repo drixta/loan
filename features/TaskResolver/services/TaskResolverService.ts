@@ -12,6 +12,7 @@ interface TaskResolverParams {
   type: EntityType;
   field: string;
   entityID: ID;
+  actionName: string;
 }
 
 class TaskResolverService {
@@ -64,14 +65,16 @@ class TaskResolverService {
     }
   }
 
-  execute({ type, field, entityID }: TaskResolverParams) {
+  execute({ type, field, entityID, actionName }: TaskResolverParams) {
     const entity = this.getEntity(entityID, type);
     const taskDefIDs = this.taskDefRepository.getTaskDefIDByEntityField({
       type,
       field,
     });
     if ((window as any)["env"] != "Test") {
-      printf(red(`=====Action Executed=====\n`));
+      printf(
+        red(`=====Action ${actionName}:${entityID}.${field} executed=====\n`),
+      );
     }
     taskDefIDs.forEach((taskDefID) => {
       const taskDef = this.taskDefRepository.getTaskDef(taskDefID);

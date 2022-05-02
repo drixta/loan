@@ -21,13 +21,24 @@ export const loanManageRoutes: { [actionName: string]: Function } = {
       loanID: action.loanIdentifier,
     });
   },
-  setLoanField: (action: SetLoanFieldAction) => {
-    const { loanIdentifier, field, value } = action;
-    updateLoanService.execute({ id: loanIdentifier, field, value });
+  setLoanField: (
+    { loanIdentifier, field, value, action }: SetLoanFieldAction,
+  ) => {
+    updateLoanService.execute({
+      actionName: action,
+      id: loanIdentifier,
+      field,
+      value,
+    });
   },
   setBorrowerField: (
-    { borrowerIdentifier, field, value }: SetBorrowerFieldAction,
+    { borrowerIdentifier, field, value, action }: SetBorrowerFieldAction,
   ) => {
-    updateBorrowerService.execute({ id: borrowerIdentifier, field, value });
+    updateBorrowerService.execute({
+      actionName: action,
+      id: borrowerIdentifier,
+      field,
+      value,
+    });
   },
 };

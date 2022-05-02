@@ -4,9 +4,9 @@ import { MemoryBorrowersRepository } from "../repositories/MemoryBorrowersReposi
 import { EntityType, ID } from "../../../types.ts";
 import { fifoEventBus } from "../../../providers/fifoEventBus.ts";
 import { cloneInstance } from "../../../utils/cloneInstance.ts";
-import { Entity } from "../../TaskResolver/entities/Task.ts";
 
 interface UpdateFieldRequestParams {
+  actionName: string;
   id: ID;
   field: string;
   value: string | number | null;
@@ -20,8 +20,7 @@ class UpdateFieldService<T> {
     this.type = type;
   }
 
-  execute(params: UpdateFieldRequestParams) {
-    const { id, field, value } = params;
+  execute({ id, field, value, actionName }: UpdateFieldRequestParams) {
     const entity = this.repository.findByID(id);
     if (!entity) {
       throw new Error("Cannot update non-existent entity");
@@ -34,6 +33,7 @@ class UpdateFieldService<T> {
       field,
       entityID: id,
       type: this.type,
+      actionName: actionName,
     });
   }
 }
