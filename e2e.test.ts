@@ -12,7 +12,7 @@ import { taskInitializationService } from "./services/TaskInitializationService.
 import { taskStore } from "./repositories/MemoryTasksRepository.ts";
 import { taskDefInitializationService } from "./services/TaskDefInitializationService.ts";
 import { ID } from "./types.ts";
-import {taskResolverService} from "./services/TaskResolverService.ts";
+import { taskResolverService } from "./services/TaskResolverService.ts";
 
 Deno.test("Loan Service", async (t) => {
   const loanID = "loan123";
@@ -122,22 +122,78 @@ Deno.test("Task Initialization", async (t) => {
 
   await t.step("run a completed task", () => {
     createLoanService.execute({ id: loanID1 });
-    updateLoanService.execute({ field: 'loanAmount', value: 10000, id: loanID1 });
-    taskResolverService.execute({type: "loan", field: "loanAmount", entityID: loanID1});
-    updateLoanService.execute({ field: 'loanType', value: "Purchase", id: loanID1 });
-    taskResolverService.execute({type: "loan", field: "loanType", entityID: loanID1});
-    updateLoanService.execute({ field: 'purchasePrice', value: 100, id: loanID1 });
-    taskResolverService.execute({type: "loan", field: "purchasePrice", entityID: loanID1});
+    updateLoanService.execute({
+      field: "loanAmount",
+      value: 10000,
+      id: loanID1,
+    });
+    taskResolverService.execute({
+      type: "loan",
+      field: "loanAmount",
+      entityID: loanID1,
+    });
+    updateLoanService.execute({
+      field: "loanType",
+      value: "Purchase",
+      id: loanID1,
+    });
+    taskResolverService.execute({
+      type: "loan",
+      field: "loanType",
+      entityID: loanID1,
+    });
+    updateLoanService.execute({
+      field: "purchasePrice",
+      value: 100,
+      id: loanID1,
+    });
+    taskResolverService.execute({
+      type: "loan",
+      field: "purchasePrice",
+      entityID: loanID1,
+    });
   });
   await t.step("run a canceled task", () => {
     createLoanService.execute({ id: loanID2 });
-    updateLoanService.execute({ field: 'loanAmount', value: 10000, id: loanID2 });
-    taskResolverService.execute({type: "loan", field: "loanAmount", entityID: loanID2});
-    updateLoanService.execute({ field: 'loanType', value: "Purchase", id: loanID2 });
-    taskResolverService.execute({type: "loan", field: "loanType", entityID: loanID2});
-    updateLoanService.execute({ field: 'loanAmount', value: null, id: loanID2 });
-    taskResolverService.execute({type: "loan", field: "loanAmount", entityID: loanID2});
-    updateLoanService.execute({ field: 'purchasePrice', value: 100, id: loanID2 });
-    taskResolverService.execute({type: "loan", field: "purchasePrice", entityID: loanID2});
+    updateLoanService.execute({
+      field: "loanAmount",
+      value: 10000,
+      id: loanID2,
+    });
+    taskResolverService.execute({
+      type: "loan",
+      field: "loanAmount",
+      entityID: loanID2,
+    });
+    updateLoanService.execute({
+      field: "loanType",
+      value: "Purchase",
+      id: loanID2,
+    });
+    taskResolverService.execute({
+      type: "loan",
+      field: "loanType",
+      entityID: loanID2,
+    });
+    updateLoanService.execute({
+      field: "loanAmount",
+      value: null,
+      id: loanID2,
+    });
+    taskResolverService.execute({
+      type: "loan",
+      field: "loanAmount",
+      entityID: loanID2,
+    });
+    updateLoanService.execute({
+      field: "purchasePrice",
+      value: 100,
+      id: loanID2,
+    });
+    taskResolverService.execute({
+      type: "loan",
+      field: "purchasePrice",
+      entityID: loanID2,
+    });
   });
 });

@@ -24,78 +24,78 @@ import { taskResolverService } from "./services/TaskResolverService.ts";
 const actionsJSON = [
   {
     "action": "createLoan",
-    "loanIdentifier": "loan1"
+    "loanIdentifier": "loan1",
   },
   {
     "action": "createBorrower",
     "loanIdentifier": "loan1",
-    "borrowerIdentifier": "borr1"
+    "borrowerIdentifier": "borr1",
   },
   {
     "action": "createBorrower",
     "loanIdentifier": "loan1",
-    "borrowerIdentifier": "borr2"
+    "borrowerIdentifier": "borr2",
   },
   {
     "action": "setLoanField",
     "loanIdentifier": "loan1",
     "field": "loanAmount",
-    "value": 100000
+    "value": 100000,
   },
   {
     "action": "setLoanField",
     "loanIdentifier": "loan1",
     "field": "loanType",
-    "value": "Purchase"
+    "value": "Purchase",
   },
   {
     "action": "setBorrowerField",
     "borrowerIdentifier": "borr1",
     "field": "firstName",
-    "value": "Jane"
+    "value": "Jane",
   },
   {
     "action": "setBorrowerField",
     "borrowerIdentifier": "borr1",
     "field": "lastName",
-    "value": "Smith"
+    "value": "Smith",
   },
   {
     "action": "setBorrowerField",
     "borrowerIdentifier": "borr2",
     "field": "firstName",
-    "value": "John"
+    "value": "John",
   },
   {
     "action": "setBorrowerField",
     "borrowerIdentifier": "borr2",
     "field": "lastName",
-    "value": "Smith"
+    "value": "Smith",
   },
   {
     "action": "setBorrowerField",
     "borrowerIdentifier": "borr2",
     "field": "firstName",
-    "value": null
+    "value": null,
   },
   {
     "action": "setLoanField",
     "loanIdentifier": "loan1",
     "field": "purchasePrice",
-    "value": 500000
+    "value": 500000,
   },
   {
     "action": "setBorrowerField",
     "borrowerIdentifier": "borr2",
     "field": "firstName",
-    "value": "Joseph"
+    "value": "Joseph",
   },
   {
     "action": "setBorrowerField",
     "borrowerIdentifier": "borr2",
     "field": "address",
-    "value": "500 California St."
-  }
+    "value": "500 California St.",
+  },
 ];
 
 const tasksJSON = [
@@ -159,7 +159,7 @@ export const initializeTaskDefinition = () => {
 
 export const actionsRoute: any = {
   createLoan: (action: any) => {
-    createLoanService.execute({id: action.loanIdentifier});
+    createLoanService.execute({ id: action.loanIdentifier });
   },
   createBorrower: (action: any) => {
     createBorrowerService.execute({
@@ -176,31 +176,46 @@ export const actionsRoute: any = {
   },
 };
 
-fifoEventBus.subscribe("loan.create.completed", (_message: string, params: any) => {
-  taskInitializationService.execute({ entityID: params.id, type: "loan" });
-});
+fifoEventBus.subscribe(
+  "loan.create.completed",
+  (_message: string, params: any) => {
+    taskInitializationService.execute({ entityID: params.id, type: "loan" });
+  },
+);
 
-fifoEventBus.subscribe("borrower.create.completed", (_message: string, params: any) => {
-  taskInitializationService.execute({ entityID: params.id, type: "borrower" });
-});
+fifoEventBus.subscribe(
+  "borrower.create.completed",
+  (_message: string, params: any) => {
+    taskInitializationService.execute({
+      entityID: params.id,
+      type: "borrower",
+    });
+  },
+);
 
-fifoEventBus.subscribe("loan.update.completed", (_message: string, params: any) => {
-  taskResolverService.execute({
-    type: "loan",
-    field: params.field,
-    entityID: params.entityID,
-  });
-});
+fifoEventBus.subscribe(
+  "loan.update.completed",
+  (_message: string, params: any) => {
+    taskResolverService.execute({
+      type: "loan",
+      field: params.field,
+      entityID: params.entityID,
+    });
+  },
+);
 
-fifoEventBus.subscribe("borrower.update.completed", (_message: string, params: any) => {
-  taskResolverService.execute({
-    type: "borrower",
-    field: params.field,
-    entityID: params.entityID,
-  });
-});
+fifoEventBus.subscribe(
+  "borrower.update.completed",
+  (_message: string, params: any) => {
+    taskResolverService.execute({
+      type: "borrower",
+      field: params.field,
+      entityID: params.entityID,
+    });
+  },
+);
 
 initializeTaskDefinition();
 actionsJSON.forEach((action: any) => {
   actionsRoute[action.action](action);
-})
+});

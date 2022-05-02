@@ -1,9 +1,11 @@
-import {EntityType, ID} from "../types.ts";
+import { EntityType, ID } from "../types.ts";
 import { MemoryTasksRepository } from "../repositories/MemoryTasksRepository.ts";
 import { MemoryTaskDefsRepository } from "../repositories/MemoryTaskDefsRepository.ts";
 import { Entity, resolveCondition, Task } from "../entities/Task.ts";
-import {MemoryLoansRepository} from "../repositories/MemoryLoansRepository.ts";
-import {MemoryBorrowersRepository} from "../repositories/MemoryBorrowersRepository.ts";
+import { MemoryLoansRepository } from "../repositories/MemoryLoansRepository.ts";
+import { MemoryBorrowersRepository } from "../repositories/MemoryBorrowersRepository.ts";
+import { printf } from "https://deno.land/std@0.137.0/fmt/printf.ts";
+import { red } from "https://deno.land/std@0.137.0/fmt/colors.ts";
 
 interface TaskResolverParams {
   type: EntityType;
@@ -23,23 +25,27 @@ class TaskResolverService {
 
   execute({ type, field, entityID }: TaskResolverParams) {
     let entity: Entity | undefined;
-    if (type === 'loan') {
+    if (type === "loan") {
       entity = this.loanRepository.findByID(entityID);
-    } else if (type === 'borrower') {
+    } else if (type === "borrower") {
       entity = this.borrowerRepository.findByID(entityID);
     }
-    const taskIDs = this.taskDefRepository.getTaskDefIDByEntityField({
+    if (!entity) {
+      return;
+    }
+    const taskDefIDs = this.taskDefRepository.getTaskDefIDByEntityField({
       type,
       field,
     });
-    taskIDs.forEach((taskID) => {
-      const taskDef = this.taskDefRepository.getTaskDef(taskID);
+    printf(red(`=====Action Taken=====\n`));
+    taskDefIDs.forEach((taskDefID) => {
+      const taskDef = this.taskDefRepository.getTaskDef(taskDefID);
       if (!taskDef || !entity) {
         throw new Error("Cannot find task definition");
       }
       const task = this.taskRepository.getTask({
         entityID: entity.id,
-        taskDefID: taskID,
+        taskDefID: taskDefID,
       });
       if (task) {
         task.resolve(entity, taskDef);
@@ -47,13 +53,21 @@ class TaskResolverService {
         const newUUID = crypto.randomUUID();
         const newTask = new Task({
           id: newUUID,
+          entityID: entity.id,
+          taskDefName: taskDef.name,
+          taskDefID,
         });
         newTask.resolve(entity, taskDef);
         this.taskRepository.save({
-          entityID: entity.id,
-          taskDefID: taskID,
+          entityID: newTask.entityID,
+          taskDefID: newTask.taskDefID,
           task: newTask,
         });
+      }
+
+      const allTasks = this.taskRepository.listAllTasks();
+      for (const task of allTasks) {
+        task.print();
       }
     });
   }
