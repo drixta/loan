@@ -3,8 +3,8 @@ import { Loan } from "../entities/Loan.ts";
 import { Borrower } from "../entities/Borrower.ts";
 import { MemoryBorrowersRepository } from "../repositories/MemoryBorrowersRepository.ts";
 import { MemoryLoansRepository } from "../repositories/MemoryLoansRepository.ts";
-import {fifoEventBus} from "../../../providers/fifoEventBus.ts";
-import {ID} from "../../../types.ts";
+import { fifoEventBus } from "../../../providers/fifoEventBus.ts";
+import { ID } from "../../../types.ts";
 
 interface CreateBorrowerRequestParams {
   borrowerID: ID;

@@ -1,7 +1,15 @@
-import {CreateBorrowerAction, CreateLoanAction, SetBorrowerFieldAction, SetLoanFieldAction} from "../../../types.ts";
-import {createLoanService} from "../services/CreateLoanService.ts";
-import {createBorrowerService} from "../services/CreateBorrowerService.ts";
-import {updateBorrowerService, updateLoanService} from "../services/UpdateFieldService.ts";
+import {
+  CreateBorrowerAction,
+  CreateLoanAction,
+  SetBorrowerFieldAction,
+  SetLoanFieldAction,
+} from "../../../types.ts";
+import { createLoanService } from "../services/CreateLoanService.ts";
+import { createBorrowerService } from "../services/CreateBorrowerService.ts";
+import {
+  updateBorrowerService,
+  updateLoanService,
+} from "../services/UpdateFieldService.ts";
 
 export const actionsRoute: { [actionName: string]: Function } = {
   createLoan: (action: CreateLoanAction) => {

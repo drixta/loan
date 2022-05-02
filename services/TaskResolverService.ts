@@ -4,8 +4,8 @@ import { MemoryTaskDefsRepository } from "../repositories/MemoryTaskDefsReposito
 import { Entity, resolveCondition, Task } from "../entities/Task.ts";
 import { printf } from "https://deno.land/std@0.137.0/fmt/printf.ts";
 import { red } from "https://deno.land/std@0.137.0/fmt/colors.ts";
-import {MemoryLoansRepository} from "../features/LoanManager/repositories/MemoryLoansRepository.ts";
-import {MemoryBorrowersRepository} from "../features/LoanManager/repositories/MemoryBorrowersRepository.ts";
+import { MemoryLoansRepository } from "../features/LoanManager/repositories/MemoryLoansRepository.ts";
+import { MemoryBorrowersRepository } from "../features/LoanManager/repositories/MemoryBorrowersRepository.ts";
 
 interface TaskResolverParams {
   type: EntityType;

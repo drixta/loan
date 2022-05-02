@@ -1,4 +1,4 @@
-import {ID} from "../../../types.ts";
+import { ID } from "../../../types.ts";
 
 export interface IEntitiesRepository<T> {
   findByID(id: ID): T | undefined;

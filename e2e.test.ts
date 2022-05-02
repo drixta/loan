@@ -5,11 +5,14 @@ import { taskStore } from "./repositories/MemoryTasksRepository.ts";
 import { taskDefInitializationService } from "./services/TaskDefInitializationService.ts";
 import { ID } from "./types.ts";
 import { taskResolverService } from "./services/TaskResolverService.ts";
-import {createLoanService} from "./features/LoanManager/services/CreateLoanService.ts";
-import {Loan} from "./features/LoanManager/entities/Loan.ts";
-import {updateBorrowerService, updateLoanService} from "./features/LoanManager/services/UpdateFieldService.ts";
-import {createBorrowerService} from "./features/LoanManager/services/CreateBorrowerService.ts";
-import {Borrower} from "./features/LoanManager/entities/Borrower.ts";
+import { createLoanService } from "./features/LoanManager/services/CreateLoanService.ts";
+import { Loan } from "./features/LoanManager/entities/Loan.ts";
+import {
+  updateBorrowerService,
+  updateLoanService,
+} from "./features/LoanManager/services/UpdateFieldService.ts";
+import { createBorrowerService } from "./features/LoanManager/services/CreateBorrowerService.ts";
+import { Borrower } from "./features/LoanManager/entities/Borrower.ts";
 
 Deno.test("Loan Service", async (t) => {
   const loanID = "loan123";

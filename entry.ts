@@ -2,8 +2,8 @@ import { TaskDefinition } from "./repositories/ITaskDefsRepository.ts";
 import { taskDefInitializationService } from "./services/TaskDefInitializationService.ts";
 import { red } from "https://deno.land/std@0.137.0/fmt/colors.ts";
 import { printf } from "https://deno.land/std@0.137.0/fmt/printf.ts";
-import { actionsRoute } from "./controllers.ts";
 import { Action } from "./types.ts";
+import { actionsRoute } from "./features/LoanManager/controllers/actionRouter.ts";
 
 if (!Deno.args?.length && Deno.args.length !== 2) {
   printf(

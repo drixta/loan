@@ -10,8 +10,8 @@ import {
   Condition,
   TaskDefinition,
 } from "../repositories/ITaskDefsRepository.ts";
-import {Loan} from "../features/LoanManager/entities/Loan.ts";
-import {Borrower} from "../features/LoanManager/entities/Borrower.ts";
+import { Loan } from "../features/LoanManager/entities/Loan.ts";
+import { Borrower } from "../features/LoanManager/entities/Borrower.ts";
 
 export type Entity = Borrower | Loan;
 

@@ -1,18 +1,6 @@
 import { fifoEventBus } from "./providers/fifoEventBus.ts";
 import { taskInitializationService } from "./services/TaskInitializationService.ts";
 import { taskResolverService } from "./services/TaskResolverService.ts";
-import {
-  CreateBorrowerAction,
-  CreateLoanAction,
-  SetBorrowerFieldAction,
-  SetLoanFieldAction,
-} from "./types.ts";
-import { createLoanService } from "./features/LoanManager/services/CreateLoanService.ts";
-import {
-  updateBorrowerService,
-  updateLoanService,
-} from "./features/LoanManager/services/UpdateFieldService.ts";
-import { createBorrowerService } from "./features/LoanManager/services/CreateBorrowerService.ts";
 
 fifoEventBus.subscribe(
   "loan.create.completed",
