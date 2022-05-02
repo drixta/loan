@@ -1,9 +1,9 @@
-import { EntityType, ID } from "../types.ts";
 import { IEntitiesRepository } from "../repositories/IEntitiesRepository.ts";
 import { MemoryLoansRepository } from "../repositories/MemoryLoansRepository.ts";
 import { MemoryBorrowersRepository } from "../repositories/MemoryBorrowersRepository.ts";
-import { cloneInstance } from "../utils/cloneInstance.ts";
-import { fifoEventBus } from "../providers/fifoEventBus.ts";
+import { EntityType, ID } from "../../../types.ts";
+import { fifoEventBus } from "../../../providers/fifoEventBus.ts";
+import { cloneInstance } from "../../../utils/cloneInstance.ts";
 
 interface UpdateFieldRequestParams {
   id: ID;

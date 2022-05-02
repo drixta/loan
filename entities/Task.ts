@@ -6,12 +6,12 @@ import {
 } from "https://deno.land/std@0.137.0/fmt/colors.ts";
 
 import { ID } from "../types.ts";
-import { Borrower } from "./Borrower.ts";
-import { Loan } from "./Loan.ts";
 import {
   Condition,
   TaskDefinition,
 } from "../repositories/ITaskDefsRepository.ts";
+import {Loan} from "../features/LoanManager/entities/Loan.ts";
+import {Borrower} from "../features/LoanManager/entities/Borrower.ts";
 
 export type Entity = Borrower | Loan;
 

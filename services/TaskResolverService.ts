@@ -2,10 +2,10 @@ import { EntityType, ID } from "../types.ts";
 import { MemoryTasksRepository } from "../repositories/MemoryTasksRepository.ts";
 import { MemoryTaskDefsRepository } from "../repositories/MemoryTaskDefsRepository.ts";
 import { Entity, resolveCondition, Task } from "../entities/Task.ts";
-import { MemoryLoansRepository } from "../repositories/MemoryLoansRepository.ts";
-import { MemoryBorrowersRepository } from "../repositories/MemoryBorrowersRepository.ts";
 import { printf } from "https://deno.land/std@0.137.0/fmt/printf.ts";
 import { red } from "https://deno.land/std@0.137.0/fmt/colors.ts";
+import {MemoryLoansRepository} from "../features/LoanManager/repositories/MemoryLoansRepository.ts";
+import {MemoryBorrowersRepository} from "../features/LoanManager/repositories/MemoryBorrowersRepository.ts";
 
 interface TaskResolverParams {
   type: EntityType;

@@ -1,4 +1,4 @@
-import { ID } from "../types.ts";
+import { ID } from "../../../types.ts";
 
 export type EntityStore<T> = Map<ID, T>;
 

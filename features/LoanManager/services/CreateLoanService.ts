@@ -1,8 +1,8 @@
-import { ID } from "../types.ts";
 import { IEntitiesRepository } from "../repositories/IEntitiesRepository.ts";
 import { MemoryLoansRepository } from "../repositories/MemoryLoansRepository.ts";
 import { Loan } from "../entities/Loan.ts";
-import { fifoEventBus } from "../providers/fifoEventBus.ts";
+import { fifoEventBus } from "../../../providers/fifoEventBus.ts";
+import { ID } from "../../../types.ts";
 
 interface CreateLoanRequestParams {
   id: ID;

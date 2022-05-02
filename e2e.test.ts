@@ -1,18 +1,15 @@
 import { assertEquals } from "https://deno.land/std@0.137.0/testing/asserts.ts";
-import { createLoanService } from "./services/CreateLoanService.ts";
-import { Loan } from "./entities/Loan.ts";
-import { createBorrowerService } from "./services/CreateBorrowerService.ts";
-import {
-  updateBorrowerService,
-  updateLoanService,
-} from "./services/UpdateFieldService.ts";
-import { Borrower } from "./entities/Borrower.ts";
 import { taskDefinitionStore } from "./repositories/MemoryTaskDefsRepository.ts";
 import { taskInitializationService } from "./services/TaskInitializationService.ts";
 import { taskStore } from "./repositories/MemoryTasksRepository.ts";
 import { taskDefInitializationService } from "./services/TaskDefInitializationService.ts";
 import { ID } from "./types.ts";
 import { taskResolverService } from "./services/TaskResolverService.ts";
+import {createLoanService} from "./features/LoanManager/services/CreateLoanService.ts";
+import {Loan} from "./features/LoanManager/entities/Loan.ts";
+import {updateBorrowerService, updateLoanService} from "./features/LoanManager/services/UpdateFieldService.ts";
+import {createBorrowerService} from "./features/LoanManager/services/CreateBorrowerService.ts";
+import {Borrower} from "./features/LoanManager/entities/Borrower.ts";
 
 Deno.test("Loan Service", async (t) => {
   const loanID = "loan123";

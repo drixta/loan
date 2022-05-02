@@ -1,10 +1,3 @@
-import { createLoanService } from "./services/CreateLoanService.ts";
-import { createBorrowerService } from "./services/CreateBorrowerService.ts";
-import {
-  updateBorrowerService,
-  updateLoanService,
-} from "./services/UpdateFieldService.ts";
-
 import { fifoEventBus } from "./providers/fifoEventBus.ts";
 import { taskInitializationService } from "./services/TaskInitializationService.ts";
 import { taskResolverService } from "./services/TaskResolverService.ts";
@@ -14,8 +7,14 @@ import {
   SetBorrowerFieldAction,
   SetLoanFieldAction,
 } from "./types.ts";
+import { createLoanService } from "./features/LoanManager/services/CreateLoanService.ts";
+import {
+  updateBorrowerService,
+  updateLoanService,
+} from "./features/LoanManager/services/UpdateFieldService.ts";
+import { createBorrowerService } from "./features/LoanManager/services/CreateBorrowerService.ts";
 
-export const actionsRoute: {[actionName: string]: Function} = {
+export const actionsRoute: { [actionName: string]: Function } = {
   createLoan: (action: CreateLoanAction) => {
     createLoanService.execute({ id: action.loanIdentifier });
   },

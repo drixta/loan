@@ -1,4 +1,4 @@
-import { ID } from "../types.ts";
+import {ID} from "../../../types.ts";
 
 export class Borrower {
   public readonly id: ID;
