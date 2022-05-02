@@ -31,6 +31,9 @@ abstract class TaskState {
 export type TaskStatus = "Open" | "Cancelled" | "Completed";
 
 export const resolveCondition = (conditions: Condition[], pentity: Entity) => {
+  if (!conditions?.length) {
+    return false;
+  }
   return conditions.every((condition) => {
     const field = condition.field;
     const entity = JSON.parse(JSON.stringify(pentity));

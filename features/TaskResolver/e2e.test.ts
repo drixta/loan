@@ -1,6 +1,6 @@
 import { ID } from "../../types.ts";
 import { taskDefInitializationService } from "./services/TaskDefInitializationService.ts";
-import { taskDefinitionStore } from "./repositories/MemoryTaskDefsRepository.ts";
+import {fieldToTaskDefStore, taskDefinitionStore} from "./repositories/MemoryTaskDefsRepository.ts";
 import { taskInitializationService } from "./services/TaskInitializationService.ts";
 import { assertEquals } from "https://deno.land/std@0.137.0/testing/asserts.ts";
 import { taskStore } from "./repositories/MemoryTasksRepository.ts";
@@ -37,6 +37,7 @@ Deno.test("Task Resolver", async (t) => {
       ],
     },
   ]));
+
   let taskDefID: ID = "";
   await t.step("initialize tasks definition", () => {
     taskDefInitializationService.execute(taskDefs);
@@ -50,6 +51,7 @@ Deno.test("Task Resolver", async (t) => {
     taskInitializationService.execute({ entityID: loanID3, type: "loan" });
     assertEquals(taskStore[loanID1][taskDefID], null);
     assertEquals(taskStore[loanID2][taskDefID], null);
+    assertEquals(taskStore[loanID3][taskDefID], null);
   });
 
   await t.step("run a completed task", async (t) => {
@@ -219,3 +221,61 @@ Deno.test("Task Resolver", async (t) => {
     });
   });
 });
+
+Deno.test("Empty Task Resolver", async (t) => {
+  const loanID = 'EmptyLoanTask123';
+  const emptyCompleteConditionTask = JSON.parse(JSON.stringify([
+    {
+      "name": "Require purchase price for purchase loans without complete conditions",
+      "entity": "loan",
+      "triggerConditions": [
+        {
+          "field": "loanAmount",
+          "comparator": "exists",
+        },
+        {
+          "field": "loanType",
+          "comparator": "equals",
+          "value": "Purchase",
+        },
+      ],
+      "completionConditions": [],
+    },
+  ]));
+  const taskDefID = taskDefInitializationService.execute(emptyCompleteConditionTask)[0];
+  taskInitializationService.execute({ entityID: loanID, type: "loan" });
+  await t.step("rerun a completed task", async (t) => {
+    await t.step("initialize service and create a Completed task", () => {
+      createLoanService.execute({id: loanID});
+      updateLoanService.execute({
+        field: "loanAmount",
+        value: 10000,
+        id: loanID,
+      });
+      updateLoanService.execute({
+        field: "loanType",
+        value: "Purchase",
+        id: loanID,
+      });
+      taskResolverService.execute({
+        type: "loan",
+        field: "loanType",
+        entityID: loanID,
+      });
+      updateLoanService.execute({
+        field: "purchasePrice",
+        value: 1000,
+        id: loanID,
+      });
+      taskResolverService.execute({
+        type: "loan",
+        field: "purchasePrice",
+        entityID: loanID,
+      });
+      assertEquals(
+        taskStore[loanID][taskDefID]?.currentState.displayName,
+        "Open",
+      );
+    });
+  });
+})

@@ -1,10 +1,10 @@
 import { red } from "https://deno.land/std@0.137.0/fmt/colors.ts";
 import { printf } from "https://deno.land/std@0.137.0/fmt/printf.ts";
-import { Action } from "./types.ts";
 import { initializeSubscriptionHandlers } from "./features/TaskResolver/handlers/actionsHandler.ts";
 import { TaskDefinition } from "./features/TaskResolver/repositories/ITaskDefsRepository.ts";
 import { taskDefInitializationService } from "./features/TaskResolver/services/TaskDefInitializationService.ts";
 import { loanManageRoutes } from "./features/LoanManager/handlers/loanManagerRoutes.ts";
+import {Action} from "./features/LoanManager/handlers/interfaces.ts";
 
 if (!Deno.args?.length && Deno.args.length !== 2) {
   printf(

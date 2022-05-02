@@ -4,6 +4,7 @@ import { MemoryBorrowersRepository } from "../repositories/MemoryBorrowersReposi
 import { EntityType, ID } from "../../../types.ts";
 import { fifoEventBus } from "../../../providers/fifoEventBus.ts";
 import { cloneInstance } from "../../../utils/cloneInstance.ts";
+import {Entity} from "../../TaskResolver/entities/Task.ts";
 
 interface UpdateFieldRequestParams {
   id: ID;
@@ -27,8 +28,7 @@ class UpdateFieldService<T> {
     }
 
     const clonedEntity = cloneInstance<T>(entity);
-    // @ts-ignore
-    clonedEntity[field] = value;
+    (clonedEntity as any)[field] = value;
     this.repository.save(id, clonedEntity);
     fifoEventBus.publishSync(`${this.type}.update.completed`, {
       field,
