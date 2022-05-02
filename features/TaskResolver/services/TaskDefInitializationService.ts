@@ -8,7 +8,11 @@ class TaskDefInitializationService {
   execute(taskDefs: TaskDefinition[]) {
     taskDefs.forEach((taskDef) => {
       const newUUID = crypto.randomUUID();
-      this.taskDefsRepository.save({ id: newUUID, taskDef });
+      const populatedTaskDef = {
+        ...taskDef,
+        id: newUUID,
+      }
+      this.taskDefsRepository.save({ id: newUUID, taskDef: populatedTaskDef });
     });
   }
 }

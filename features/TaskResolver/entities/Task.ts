@@ -108,7 +108,11 @@ export class Task {
   }
 
   resolve(entity: Entity, taskDef: TaskDefinition) {
-    this.currentState.resolve(entity, taskDef);
+    let pastState;
+    while (pastState !== this.currentState) {
+      pastState = this.currentState;
+      this.currentState.resolve(entity, taskDef);
+    }
   }
 
   print() {

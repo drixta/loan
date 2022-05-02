@@ -15,6 +15,7 @@ export type Condition =
   );
 
 export interface TaskDefinition {
+  id: ID;
   name: string;
   entity: string;
   triggerConditions: Condition[];

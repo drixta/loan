@@ -1,9 +1,12 @@
-import {createLoanService} from "./services/CreateLoanService.ts";
-import {assertEquals} from "https://deno.land/std@0.137.0/testing/asserts.ts";
-import {Loan} from "./entities/Loan.ts";
-import {createBorrowerService} from "./services/CreateBorrowerService.ts";
-import {Borrower} from "./entities/Borrower.ts";
-import {updateBorrowerService, updateLoanService} from "./services/UpdateFieldService.ts";
+import { createLoanService } from "./services/CreateLoanService.ts";
+import { assertEquals } from "https://deno.land/std@0.137.0/testing/asserts.ts";
+import { Loan } from "./entities/Loan.ts";
+import { createBorrowerService } from "./services/CreateBorrowerService.ts";
+import { Borrower } from "./entities/Borrower.ts";
+import {
+  updateBorrowerService,
+  updateLoanService,
+} from "./services/UpdateFieldService.ts";
 
 Deno.test("Loan Service", async (t) => {
   const loanID = "loan123";

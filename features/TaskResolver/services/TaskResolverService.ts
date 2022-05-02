@@ -6,6 +6,7 @@ import { EntityType, ID } from "../../../types.ts";
 import { MemoryLoansRepository } from "../../LoanManager/repositories/MemoryLoansRepository.ts";
 import { MemoryBorrowersRepository } from "../../LoanManager/repositories/MemoryBorrowersRepository.ts";
 import { Entity, resolveCondition, Task } from "../entities/Task.ts";
+import {TaskDefinition} from "../repositories/ITaskDefsRepository.ts";
 
 interface TaskResolverParams {
   type: EntityType;
@@ -23,7 +24,7 @@ class TaskResolverService {
   private readonly borrowerRepository: MemoryBorrowersRepository =
     new MemoryBorrowersRepository();
 
-  execute({ type, field, entityID }: TaskResolverParams) {
+  private getEntity(entityID: ID, type: EntityType): Entity {
     let entity: Entity | undefined;
     if (type === "loan") {
       entity = this.loanRepository.findByID(entityID);
@@ -31,13 +32,48 @@ class TaskResolverService {
       entity = this.borrowerRepository.findByID(entityID);
     }
     if (!entity) {
-      return;
+      throw new Error("Cannot find entity");
     }
+    return entity;
+  }
+
+  private printTasks() {
+    if ((window as any)["env"] != 'Test') {
+      const allTasks = this.taskRepository.listAllTasks();
+      allTasks.forEach((task, index) => {
+        task.print();
+      })
+    }
+  }
+
+  private createNewTask(taskDef: TaskDefinition, entity: Entity) {
+    if (resolveCondition(taskDef.triggerConditions, entity)) {
+      const newUUID = crypto.randomUUID();
+      const newTask = new Task({
+        id: newUUID,
+        entityID: entity.id,
+        taskDefName: taskDef.name,
+        taskDefID: taskDef.id,
+      });
+      newTask.resolve(entity, taskDef);
+      this.taskRepository.save({
+        entityID: newTask.entityID,
+        taskDefID: newTask.taskDefID,
+        task: newTask,
+      });
+    }
+  }
+
+  execute({ type, field, entityID }: TaskResolverParams) {
+
+    const entity = this.getEntity(entityID, type);
     const taskDefIDs = this.taskDefRepository.getTaskDefIDByEntityField({
       type,
       field,
     });
-    printf(red(`=====Action Taken=====\n`));
+    if ((window as any)["env"] != 'Test') {
+      printf(red(`=====Action Executed=====\n`));
+    }
     taskDefIDs.forEach((taskDefID) => {
       const taskDef = this.taskDefRepository.getTaskDef(taskDefID);
       if (!taskDef || !entity) {
@@ -49,26 +85,10 @@ class TaskResolverService {
       });
       if (task) {
         task.resolve(entity, taskDef);
-      } else if (resolveCondition(taskDef.triggerConditions, entity)) {
-        const newUUID = crypto.randomUUID();
-        const newTask = new Task({
-          id: newUUID,
-          entityID: entity.id,
-          taskDefName: taskDef.name,
-          taskDefID,
-        });
-        newTask.resolve(entity, taskDef);
-        this.taskRepository.save({
-          entityID: newTask.entityID,
-          taskDefID: newTask.taskDefID,
-          task: newTask,
-        });
+      } else {
+        this.createNewTask(taskDef, entity);
       }
-
-      const allTasks = this.taskRepository.listAllTasks();
-      for (const task of allTasks) {
-        task.print();
-      }
+      this.printTasks();
     });
   }
 }
