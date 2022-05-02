@@ -5,13 +5,13 @@ import {
   green,
 } from "https://deno.land/std@0.137.0/fmt/colors.ts";
 
-import { ID } from "../types.ts";
+import { ID } from "../../../types.ts";
+import { Loan } from "../../LoanManager/entities/Loan.ts";
+import { Borrower } from "../../LoanManager/entities/Borrower.ts";
 import {
   Condition,
   TaskDefinition,
 } from "../repositories/ITaskDefsRepository.ts";
-import { Loan } from "../features/LoanManager/entities/Loan.ts";
-import { Borrower } from "../features/LoanManager/entities/Borrower.ts";
 
 export type Entity = Borrower | Loan;
 

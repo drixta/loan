@@ -1,6 +1,6 @@
-import { EntityType, ID } from "../types.ts";
 import { MemoryTasksRepository } from "../repositories/MemoryTasksRepository.ts";
 import { MemoryTaskDefsRepository } from "../repositories/MemoryTaskDefsRepository.ts";
+import { EntityType, ID } from "../../../types.ts";
 
 interface TaskInitializeParams {
   entityID: ID;

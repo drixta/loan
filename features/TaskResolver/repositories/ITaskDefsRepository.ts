@@ -1,4 +1,4 @@
-import { EntityType, ID } from "../types.ts";
+import { EntityType, ID } from "../../../types.ts";
 
 export type Condition =
   & {

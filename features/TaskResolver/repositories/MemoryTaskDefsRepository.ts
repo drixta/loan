@@ -4,7 +4,7 @@ import {
   SaveParams,
   TaskDefinition,
 } from "./ITaskDefsRepository.ts";
-import { EntityType, ID } from "../types.ts";
+import { EntityType, ID } from "../../../types.ts";
 
 // Export only for tests
 export const taskDefinitionStore: { [id: ID]: TaskDefinition } = {};

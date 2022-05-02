@@ -1,9 +1,10 @@
-import { TaskDefinition } from "./repositories/ITaskDefsRepository.ts";
-import { taskDefInitializationService } from "./services/TaskDefInitializationService.ts";
 import { red } from "https://deno.land/std@0.137.0/fmt/colors.ts";
 import { printf } from "https://deno.land/std@0.137.0/fmt/printf.ts";
 import { Action } from "./types.ts";
-import { actionsRoute } from "./features/LoanManager/controllers/actionRouter.ts";
+import { initializeSubscriptionHandlers } from "./features/TaskResolver/handlers/actionsHandler.ts";
+import { TaskDefinition } from "./features/TaskResolver/repositories/ITaskDefsRepository.ts";
+import { taskDefInitializationService } from "./features/TaskResolver/services/TaskDefInitializationService.ts";
+import { loanManageRoutes } from "./features/LoanManager/handlers/loanManagerRoutes.ts";
 
 if (!Deno.args?.length && Deno.args.length !== 2) {
   printf(
@@ -33,8 +34,9 @@ export const initializeTaskDefinition = () => {
 export const executeActions = () => {
   JSON.parse(actionsJSON).forEach((action: Action) => {
     const actionName: string = action.action;
-    actionsRoute[actionName](action);
+    loanManageRoutes[actionName](action);
   });
 };
 initializeTaskDefinition();
+initializeSubscriptionHandlers();
 executeActions();

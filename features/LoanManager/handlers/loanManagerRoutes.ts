@@ -11,7 +11,7 @@ import {
   updateLoanService,
 } from "../services/UpdateFieldService.ts";
 
-export const actionsRoute: { [actionName: string]: Function } = {
+export const loanManageRoutes: { [actionName: string]: Function } = {
   createLoan: (action: CreateLoanAction) => {
     createLoanService.execute({ id: action.loanIdentifier });
   },

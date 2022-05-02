@@ -1,11 +1,11 @@
-import { EntityType, ID } from "../types.ts";
 import { MemoryTasksRepository } from "../repositories/MemoryTasksRepository.ts";
 import { MemoryTaskDefsRepository } from "../repositories/MemoryTaskDefsRepository.ts";
-import { Entity, resolveCondition, Task } from "../entities/Task.ts";
 import { printf } from "https://deno.land/std@0.137.0/fmt/printf.ts";
 import { red } from "https://deno.land/std@0.137.0/fmt/colors.ts";
-import { MemoryLoansRepository } from "../features/LoanManager/repositories/MemoryLoansRepository.ts";
-import { MemoryBorrowersRepository } from "../features/LoanManager/repositories/MemoryBorrowersRepository.ts";
+import { EntityType, ID } from "../../../types.ts";
+import { MemoryLoansRepository } from "../../LoanManager/repositories/MemoryLoansRepository.ts";
+import { MemoryBorrowersRepository } from "../../LoanManager/repositories/MemoryBorrowersRepository.ts";
+import { Entity, resolveCondition, Task } from "../entities/Task.ts";
 
 interface TaskResolverParams {
   type: EntityType;
